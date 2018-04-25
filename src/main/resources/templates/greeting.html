@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+
+<div layout:fragment="page_content" id="page_content">
+    <div class="starter-template">
+        <p th:text="'Hello, ' + ${name} + '!'" />
+    </div>
+</div>

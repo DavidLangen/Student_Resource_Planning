@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+
+    <div layout:fragment="page_content" id="page_content">
+        <table th:object="${students}" id="userTable" border="1">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Kurs</th>
+            </tr>
+            <tr th:each="student :${students}">
+                <td  th:text="${student.getId()}"></td>
+                <td  th:text="${student.getName()}"></td>
+                <td  th:text="${student.getCourse()}"></td>
+            </tr>
+        </table>
+    </div>
+
+
