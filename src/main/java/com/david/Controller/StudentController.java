@@ -1,27 +1,27 @@
 package com.david.Controller;
 
-import com.david.Entity.Student;
 import com.david.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import java.util.Collection;
 
-@RestController
-@RequestMapping("/")
+@Controller
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public Collection<Student> getAllStudents() {
-        return studentService.getAllStudents();
+    @GetMapping("/students")
+    public String students(Model model) {
+        model.addAttribute("students",studentService.getAllStudents());
+        return "students";
     }
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public Student getStudentById(@PathVariable("id") int id){
-        return this.studentService.getStudentById(id);
+
+    @GetMapping("/students/{id}")
+    public String student(@PathVariable(value = "id") int id, Model model) {
+        model.addAttribute("student",studentService.getStudentById(id));
+        return "students";
     }
 }
