@@ -5,9 +5,29 @@
       layout:decorate="~{base}">
 
 <div layout:fragment="page_content" id="page_content">
-    <div class="starter-template">
-        <h1>Hier kommt die Suche hin! :D</h1>
-    </div>
+    <form>
+        <div class="form-horizontal">
+            <input type="text" id="search" name="search" placeholder="Suche">
+            <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+    </form>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Kurs</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="student :${students}">
+                <td th:text="${student.getId()}"></td>
+                <td th:text="${student.getName()}"></td>
+                <td th:text="${student.getCourse()}"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 
