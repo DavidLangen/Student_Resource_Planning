@@ -1,5 +1,6 @@
 package com.david.Controller;
 
+import com.david.Dao.StudentRepo;
 import com.david.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ public class StudentController {
     }
 
     @GetMapping("/students/{id}")
-    public String student(@PathVariable(value = "id") int id, Model model) {
+    public String student(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("student",studentService.getStudentById(id));
         return "students";
     }

@@ -1,12 +1,24 @@
 package com.david.Entity;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+
+@Entity
+@Table(name = "students")
 public class Student {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @NotBlank
+    @Column(name = "name")
     private String name;
+    @NotBlank
+    @Column(name = "course")
     private String course;
 
-    public Student(int id, String name, String course) {
+    public Student(long id, String name, String course) {
         this.id = id;
         this.name = name;
         this.course = course;
@@ -15,11 +27,11 @@ public class Student {
     public Student() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
