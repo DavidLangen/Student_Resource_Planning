@@ -1,2 +1,5 @@
 INSERT INTO students(name,course) values('Peter','Angewandte Informatik 2')
 INSERT INTO students(name,course) values('Juergen','Angewandte Informatik 3')
+INSERT INTO students(name,course) values('Thomas','Angewandte Informatik 3')
+INSERT INTO students(name,course) values('Alfred','Angewandte Informatik 3')
+INSERT INTO students(name,course) values('Donald','Angewandte Informatik 3')

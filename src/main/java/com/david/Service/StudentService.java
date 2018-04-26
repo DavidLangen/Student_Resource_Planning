@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class StudentService {
@@ -20,5 +21,10 @@ public class StudentService {
 
     public Student getStudentById(long id){
         return this.studentRepo.findById(id).orElseThrow(()-> new EntityNotFoundException());
+    }
+
+    public List<Student> findByName(String name) {
+        List<Student> res = studentRepo.findByNameLike(name);
+        return res;
     }
 }

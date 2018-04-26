@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class StudentController {
@@ -25,4 +26,11 @@ public class StudentController {
         model.addAttribute("student",studentService.getStudentById(id));
         return "students";
     }
+
+    @GetMapping("/")
+    public String findStudents(Model model, @RequestParam(defaultValue = "") String search) {
+        model.addAttribute("students",studentService.findByName(search));
+        return "index";
+    }
+
 }
