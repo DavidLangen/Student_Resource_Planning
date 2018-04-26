@@ -1,11 +1,11 @@
 package com.david.Service;
 
+import com.david.Exceptions.ResourceNotFoundException;
 import com.david.Repository.StudentRepo;
 import com.david.Entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class StudentService {
     }
 
     public Student getStudentById(long id){
-        return this.studentRepo.findById(id).orElseThrow(()-> new EntityNotFoundException());
+        return this.studentRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Student", "Id", id));
     }
 
     public List<Student> findByName(String name) {

@@ -1,6 +1,5 @@
 package com.david.Controller;
 
-import com.david.Dao.StudentRepo;
 import com.david.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
