@@ -1,6 +1,6 @@
 package com.david.Service;
 
-import com.david.Dao.StudentRepo;
+import com.david.Repository.StudentRepo;
 import com.david.Entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.david.Dao;
+package com.david.Repository;
 
 import com.david.Entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
