@@ -1,3 +1,4 @@
+<!-- Base Template for all HTML Pages -> Can be include with: layout:decorate="~{base}" -->
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,7 +13,7 @@
 
 </head>
 <body>
-
+<!-- Navigation made with bootstrap-->
 <nav class="navbar navbar-inverse">
     <div class="container">
         <div class="navbar-header">
@@ -24,14 +25,15 @@
                 <li><a href="/greeting">Greeting</a></li>
                 <li><a href="/students">Students</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right"><li><a href="/logout">Logout</a></li></ul>
         </div>
+
     </div>
 </nav>
 
 <div class="container">
-    <div layout:fragment="page_content" id="page_content"></div>
+    <div layout:fragment="page_content" id="page_content"> <!-- Content of the Page! --></div>
 </div>
-<!-- /.container -->
 
 <script type="text/javascript"
         src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
