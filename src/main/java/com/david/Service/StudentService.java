@@ -1,8 +1,8 @@
 package com.david.Service;
 
+import com.david.Entity.Student;
 import com.david.Exceptions.ResourceNotFoundException;
 import com.david.Repository.StudentRepo;
-import com.david.Entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +26,10 @@ public class StudentService {
     public List<Student> findByName(String name) {
         List<Student> res = studentRepo.findByNameLike(name);
         return res;
+    }
+
+    public void deleteById(long id){
+        Student student = getStudentById(id);
+        studentRepo.delete(student);
     }
 }

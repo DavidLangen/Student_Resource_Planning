@@ -11,11 +11,13 @@
             <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
         </div>
     </form>
-
+    <form method="post" action="/">
+    <button class="btn" type="submit">Löschen</button>
     <table class="table table-hover">
         <thead>
         <tr>
             <th>Id</th>
+            <th>Makieren</th>
             <th>Name</th>
             <th>Kurs</th>
         </tr>
@@ -23,11 +25,13 @@
         <tbody>
             <tr th:each="student :${students}">
                 <td th:text="${student.getId()}"></td>
+                <td ><input id="check1" type="checkbox" class="styled" name="id" th:value="${student.getId()}"></td>
                 <td th:text="${student.getName()}"></td>
                 <td th:text="${student.getCourse()}"></td>
             </tr>
         </tbody>
     </table>
+    </form>
 </div>
 
 
