@@ -12,26 +12,70 @@
         </div>
     </form>
     <form method="post" action="/">
-    <button class="btn" type="submit">Löschen</button>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Makieren</th>
-            <th>Name</th>
-            <th>Kurs</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr th:each="student :${students}">
+        <button class="btn" type="submit">Löschen</button>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Makieren</th>
+                <th>Name</th>
+                <th>Kurs</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student :${students.content}">
                 <td th:text="${student.getId()}"></td>
-                <td ><input id="check1" type="checkbox" class="styled" name="id" th:value="${student.getId()}"></td>
+                <td><input id="check1" type="checkbox" class="styled" name="id" th:value="${student.getId()}"></td>
                 <td th:text="${student.getName()}"></td>
                 <td th:text="${student.getCourse()}"></td>
+                <td ><a th:href="@{findStudentById/(id=${student.getId()})}" class="btn btn-default eBtn">Ändern</a></td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <ul class="pagination pagination-lg ">
+            <li th:each="number: ${#numbers.sequence(0, students.totalPages -1 )}"
+                th:classappend="${currentPage} == ${number} ? 'active' : ''">
+                <a th:href="@{/(page=${number})}" th:text="${number}"></a>
+            </li>
+        </ul>
     </form>
+
+    <div class="updateForm">
+        <form th:action="@{/updateStudent}" method="post">
+            <div class="modal fade" id="updateModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Daten von <span id="studentname"></span> ändern</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="id" class="col-form-label">ID:</label>
+                                <input type="text" class="form-control" id="id" value="" disabled/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Name</label>
+                                <input class="form-control" id="name" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="course" class="col-form-label">Kurs</label>
+                                <input class="form-control" id="course" value=""/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                            <input type="submit" class="btn btn-primary" value="Speichern"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
 </div>
 
 

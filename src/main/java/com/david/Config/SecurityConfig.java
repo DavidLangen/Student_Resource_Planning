@@ -20,11 +20,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin().loginPage("/login").permitAll()
                 .and()
                     .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout");
+        http.csrf().disable();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         UserDetails david = User.withUsername("david").password("{noop}password").roles("USER", "ADMIN").build();
         auth.inMemoryAuthentication().withUser(david);
+        
     }
 }

@@ -11,12 +11,17 @@
                 <th>Name</th>
                 <th>Kurs</th>
             </tr>
-            <tr th:each="student :${students}">
+            <tr th:each="student :${students.content}">
                 <td  th:text="${student.getId()}"></td>
                 <td  th:text="${student.getName()}"></td>
                 <td  th:text="${student.getCourse()}"></td>
             </tr>
         </table>
+        <ul class="pagination pagination-lg ">
+            <li  th:each="number: ${#numbers.sequence(0, students.totalPages -1 )}"  th:classappend="${currentPage} == ${number} ? 'active' : ''">
+                <a th:href="@{/students(page=${number})}" th:text="${number}"></a>
+            </li>
+        </ul>
     </div>
 
 
