@@ -44,10 +44,12 @@ public class StudentController {
     }
 
     @PostMapping(value = "/")
-    public String deleteStudents(Model model,@RequestParam("id") List<Integer> ids,@RequestParam(defaultValue = "0") int page)
+    public String deleteStudents(Model model,@RequestParam(defaultValue = "",value="id") List<Integer> ids,@RequestParam(defaultValue = "0") int page)
     {
-        ids.stream().forEach(id->studentService.deleteById(id));
-        model.addAttribute("students",studentService.getAllStudents(page));
+        if(!ids.isEmpty()) {
+            ids.stream().forEach(id -> studentService.deleteById(id));
+        }
+        model.addAttribute("students", studentService.getAllStudents(page));
         return "index";
     }
 
