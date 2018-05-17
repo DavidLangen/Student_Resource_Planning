@@ -19,14 +19,18 @@
                 <th>Id</th>
                 <th>Makieren</th>
                 <th>Name</th>
+                <th>E-mail</th>
+                <th>Tel. Nr.</th>
                 <th>Kurs</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="student :${students.content}">
                 <td th:text="${student.getId()}"></td>
-                <td><input id="check1" type="checkbox" class="styled" name="id" th:value="${student.getId()}"></td>
-                <td th:text="${student.getName()}"></td>
+                <td><input type="checkbox" class="styled" name="id" th:value="${student.getId()}"></td>
+                <td th:text="${student.getFirstName() +' '+ student.getLastName()}"></td>
+                <td th:text="${student.getMail()}"></td>
+                <td th:text="${student.getPhone()}"></td>
                 <td th:text="${student.getCourse()}"></td>
                 <td ><a th:href="@{findStudentById/(id=${student.getId()})}" class="btn btn-default eBtn">Ändern</a></td>
             </tr>
@@ -54,13 +58,26 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="id" class="col-form-label">ID:</label>
-                                <input type="text" class="form-control" id="id" value="" disabled/>
+                                <label for="firstname" class="col-form-label">Name</label>
+                                <input class="form-control" id="firstname" value=""/>
                             </div>
                             <div class="form-group">
-                                <label for="name" class="col-form-label">Name</label>
-                                <input class="form-control" id="name" value=""/>
+                                <label for="lastname" class="col-form-label">Nachname</label>
+                                <input class="form-control" id="lastname" value=""/>
                             </div>
+                            <div class="form-group">
+                                <label for="mail" class="col-form-label">E-mail</label>
+                                <input class="form-control" id="mail" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="col-form-label">Tel. Nr.</label>
+                                <input class="form-control" id="phone" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateOfBirth" class="col-form-label">Geburtstag</label>
+                                <input class="form-control" id="dateOfBirth" value=""/>
+                            </div>
+
                             <div class="form-group">
                                 <label for="course" class="col-form-label">Kurs</label>
                                 <input class="form-control" id="course" value=""/>

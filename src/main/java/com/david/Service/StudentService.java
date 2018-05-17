@@ -27,7 +27,7 @@ public class StudentService {
     }
 
     public Page<Student> findByName(String name, int page) {
-        Page<Student> res = studentRepo.findByNameStartingWithIgnoreCase(name, PageRequest.of(page, PAGEROW_SIZE));
+        Page<Student> res = studentRepo.findByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCase(name, name, PageRequest.of(page, PAGEROW_SIZE));
         return res;
     }
 
