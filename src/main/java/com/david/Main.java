@@ -11,4 +11,22 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 	}
 
+	// TO-DO
+
+	// login
+
+	// Kurs hinzufügen GUI
+	// Kurs löschen
+	// kurs ändern
+	// Kurs index
+
+	// Studenten ändern fix
+	// Student löschen fix
+	// Studenten hinzufügen
+
+
+	// Zuordnung Studenten Kurse
+	// Validierung
+
+	//
 }
