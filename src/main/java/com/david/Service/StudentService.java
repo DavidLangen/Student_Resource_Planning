@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
+
 @Service
 public class StudentService {
 
@@ -30,8 +32,8 @@ public class StudentService {
     }
 
     public void deleteById(long id){
-        Student student = getStudentById(id);
-        studentRepo.delete(student);
+            Student student = getStudentById(id);
+            studentRepo.delete(student);
     }
 
     public void updateStudent(Student s) {
