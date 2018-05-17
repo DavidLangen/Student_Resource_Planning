@@ -3,6 +3,7 @@ package com.david.Entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -36,21 +37,22 @@ public class Student {
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
-    @NotBlank
-    @Column(name = "course")
-    private String course;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
+    private Set<Course> courses;
 
     public Student() {
     }
 
-    public Student(@NotBlank String studentNumber, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String mail, String phone, @NotBlank Date dateOfBirth, @NotBlank String course) {
+    public Student(@NotBlank String studentNumber, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String mail, String phone, @NotBlank Date dateOfBirth, Set<Course> courses) {
         this.studentNumber = studentNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
-        this.course = course;
+        this.courses = courses;
     }
 
     public long getId() {
@@ -109,11 +111,7 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
+    public Set<Course> getCourses() {
+        return courses;
     }
 }

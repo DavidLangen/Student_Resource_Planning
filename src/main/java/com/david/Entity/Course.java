@@ -2,6 +2,7 @@ package com.david.Entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 
 @Entity
@@ -10,17 +11,23 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NotBlank
     @Column(name = "name")
     private String name;
+
     @NotBlank
     @Column(name = "lecturer")
     private String lecturer;
+
     @NotBlank
     @Column(name = "description")
     private String description;
 
-    public Course(String name, String lecturer, String description) {
+    @ManyToMany(mappedBy = "courses")
+    private Set<Student> students;
+
+    public Course(@NotBlank String name, @NotBlank String lecturer, @NotBlank String description) {
         this.name = name;
         this.lecturer = lecturer;
         this.description = description;
@@ -54,6 +61,10 @@ public class Course {
 
     public void setDescription(String description) {
         this.description= description;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
     }
 
 }

@@ -31,7 +31,6 @@
                 <td th:text="${student.getFirstName() +' '+ student.getLastName()}"></td>
                 <td th:text="${student.getMail()}"></td>
                 <td th:text="${student.getPhone()}"></td>
-                <td th:text="${student.getCourse()}"></td>
                 <td ><a th:href="@{findStudentById/(id=${student.getId()})}" class="btn btn-default eBtn">Ändern</a></td>
             </tr>
             </tbody>
@@ -78,10 +77,6 @@
                                 <input class="form-control" id="dateOfBirth" value=""/>
                             </div>
 
-                            <div class="form-group">
-                                <label for="course" class="col-form-label">Kurs</label>
-                                <input class="form-control" id="course" value=""/>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
