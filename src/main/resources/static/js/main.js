@@ -9,7 +9,6 @@ $(document).ready(function () {
             $(".updateForm #mail").val(student.mail);
             $(".updateForm #phone").val(student.phone);
             $(".updateForm #dateOfBirth").val(student.dateOfBirth.substring(0, 10));
-            $(".updateForm #course").val(student.course);
             $(".updateForm #studentname").text(student.firstName +" " + student.lastName + " ("+student.studentNumber+")");
         });
         $(".updateForm #updateModel").modal();
