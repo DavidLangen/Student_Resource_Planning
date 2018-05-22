@@ -21,7 +21,9 @@
                 <th>Name</th>
                 <th>E-mail</th>
                 <th>Tel. Nr.</th>
-                <th>Kurs</th>
+                <th>Straße</th>
+                <th>Ort</th>
+                <th>PLZ</th>
             </tr>
             </thead>
             <tbody>
@@ -31,6 +33,9 @@
                 <td th:text="${student.getFirstName() +' '+ student.getLastName()}"></td>
                 <td th:text="${student.getMail()}"></td>
                 <td th:text="${student.getPhone()}"></td>
+                <td th:text="${student.getAddress().getStreet()}"></td>
+                <td th:text="${student.getAddress().getTown()}"></td>
+                <td th:text="${student.getAddress().getZip()}"></td>
                 <td ><a th:href="@{findStudentById/(id=${student.getId()})}" class="btn btn-default eBtn">Ändern</a></td>
             </tr>
             </tbody>

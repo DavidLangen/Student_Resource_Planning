@@ -1,4 +1,10 @@
 $(document).ready(function () {
+
+    $('.nav li').click(function(){
+        $('.nav li').removeClass('active');
+        $(this).addClass('active');
+    });
+
     $(".table .eBtn").on('click', function () {
         event.preventDefault(); //no request to the server
         var href = $(this).attr('href');
