@@ -37,6 +37,10 @@ public class Student {
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ADDRESS_ID")
+    private Address address;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
@@ -45,13 +49,14 @@ public class Student {
     public Student() {
     }
 
-    public Student(@NotBlank String studentNumber, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String mail, String phone, @NotBlank Date dateOfBirth, Set<Course> courses) {
+    public Student(@NotBlank String studentNumber, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String mail, String phone, @NotBlank Date dateOfBirth, Address address, Set<Course> courses) {
         this.studentNumber = studentNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
+        this.address = address;
         this.courses = courses;
     }
 
@@ -111,7 +116,19 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Set<Course> getCourses() {
         return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }
