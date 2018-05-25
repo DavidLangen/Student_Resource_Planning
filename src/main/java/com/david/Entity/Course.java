@@ -66,5 +66,4 @@ public class Course {
     public Set<Student> getStudents() {
         return students;
     }
-
 }

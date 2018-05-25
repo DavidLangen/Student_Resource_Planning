@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -126,6 +127,11 @@ public class Student {
 
     public Set<Course> getCourses() {
         return courses;
+    }
+
+    public String getCourse()
+    {
+        return courses.stream().map(s->s.toString()).collect(Collectors.joining(",&quot"));
     }
 
     public void setCourses(Set<Course> courses) {
