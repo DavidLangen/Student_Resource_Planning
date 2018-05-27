@@ -1,5 +1,7 @@
 package com.david.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -38,10 +40,12 @@ public class Student {
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
+    @JsonIgnore
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="ADDRESS_ID")
     private Address address;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
@@ -131,7 +135,7 @@ public class Student {
 
     public String getCourse()
     {
-        return courses.stream().map(s->s.toString()).collect(Collectors.joining(",&quot"));
+        return courses.stream().map(s->s.toString()).collect(Collectors.joining(","));
     }
 
     public void setCourses(Set<Course> courses) {
