@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+
+<div layout:fragment="page_content" id="page_content">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Status</th>
+                <th>Sperren</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="u :${user.content}">
+                <td th:text="${u.getId()}"></td>
+                <td th:text="${u.getUsername()}"></td>
+                <td th:text="${u.isLocked()} ? Gesperrt : Zugriff"></td>
+                <td><a th:href="@{lockUserById/(id=${u.getId()})}" th:text="${u.isLocked()} ? Entsperren : Sperren" class="btn btn-default ebtn"></a></td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination pagination-lg ">
+            <li th:each="number: ${#numbers.sequence(0, user.totalPages -1 )}"
+                th:classappend="${currentPage} == ${number} ? 'active' : ''">
+                <a th:href="@{/(page=${number})}" th:text="${number}"></a>
+            </li>
+        </ul>
+</div>
