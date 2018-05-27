@@ -2,13 +2,12 @@ package com.david.Controller;
 
 import com.david.Entity.Student;
 import com.david.Service.StudentService;
+import com.david.Service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.List;
 
 @Controller
@@ -31,7 +30,7 @@ public class StudentController {
     }
 
     @PostMapping(value = "/updateStudent")
-    public String updateStudent(@RequestParam Student s){
+    public String updateStudent(@ModelAttribute("student") Student s){
         studentService.updateStudent(s);
         return "redirect:/";
     }

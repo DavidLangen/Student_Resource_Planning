@@ -13,15 +13,57 @@
             </tr>
             <tr th:each="student :${students.content}">
                 <td  th:text="${student.getId()}"></td>
-                <td  th:text="${student.getName()}"></td>
+                <td  th:text="${student.getFirstName()}"></td>
                 <td  th:text="${student.getCourse()}"></td>
             </tr>
         </table>
+        <div class="row">
+            <div class="col-lg-2">
+                <button type="button" class="btn-lg btn-primary btn-block sBtn" data-toggle="modal"
+                        data-target="#createStudentModal">
+                    Neuer Student
+                </button>
+            </div>
+        </div>
         <ul class="pagination pagination-lg ">
             <li  th:each="number: ${#numbers.sequence(0, students.totalPages -1 )}"  th:classappend="${currentPage} == ${number} ? 'active' : ''">
                 <a th:href="@{/students(page=${number})}" th:text="${number}"></a>
             </li>
         </ul>
+        <div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="createCourseModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" action="/students/create">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="exampleModalLabel">Neuen Studenten erstellen</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="name">ID</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="lecturer">Name</label>
+                                <input type="text" class="form-control" id="lecturer" name="lecturer">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Kurs</label>
+                                <textarea class="form-control" id="description" name="description"
+                                          style="min-width: 100%; max-width: 100%;"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                            <button type="submit" class="btn btn-primary">Speichern</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 

@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Null;
-
 @Service
 public class StudentService {
 
@@ -27,7 +25,7 @@ public class StudentService {
     }
 
     public Page<Student> findByName(String name, int page) {
-        Page<Student> res = studentRepo.findByNameStartingWithIgnoreCase(name, PageRequest.of(page, PAGEROW_SIZE));
+        Page<Student> res = studentRepo.findByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCase(name, name, PageRequest.of(page, PAGEROW_SIZE));
         return res;
     }
 
