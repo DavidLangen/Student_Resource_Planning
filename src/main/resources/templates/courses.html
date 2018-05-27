@@ -21,8 +21,17 @@
             <td th:text="${course.getLecturer()}"></td>
             <td th:text="${course.getDescription()}"></td>
             <td>
-                <a th:href="@{'/courses/delete/?id=' + ${course.getId()}}"
-                   class="btn-lg btn-default"><span class="glyphicon glyphicon-erase"></span></a>
+                <a th:href="@{'/courses/delete/?id=' + ${course.getId()}}" class="btn-lg btn-default">
+                    <span class="glyphicon glyphicon-erase"></span>
+                </a>
+                <a class="btn-lg btn-default btnUpdateCourse" data-toggle="modal" data-target="#updateCourseModal"
+                   th:attr="
+                        data-id=${course.getId()},
+                        data-name=${course.getName()},
+                        data-lecturer=${course.getLecturer()},
+                        data-description=${course.getDescription()}">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
             </td>
         </tr>
     </table>
@@ -37,36 +46,73 @@
     <div class="row">
         <div class="col-lg-12">
             <ul class="pagination pagination-lg ">
-                <li th:each="number: ${#numbers.sequence(0, courses.totalPages -1 )}"
+                <li th:each="number: ${#numbers.sequence(0, courses.totalPages)}"
                     th:classappend="${currentPage} == ${number} ? 'active' : ''">
                     <a th:href="@{/courses(page=${number})}" th:text="${number}"></a>
                 </li>
             </ul>
         </div>
     </div>
+
     <div class="modal fade" id="createCourseModal" tabindex="-1" role="dialog" aria-labelledby="createCourseModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form method="post" action="/courses/create">
                     <div class="modal-header">
-                        <h2 class="modal-title" id="exampleModalLabel">Neuen Kurs erstellen</h2>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <h2 class="modal-title" id="createCourseModalLabel">Neuen Kurs erstellen</h2>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <label for="cc-name">Name</label>
+                            <input type="text" class="form-control" id="cc-name" name="name">
                         </div>
                         <div class="form-group">
-                            <label for="lecturer">Dozent</label>
-                            <input type="text" class="form-control" id="lecturer" name="lecturer">
+                            <label for="cc-lecturer">Dozent</label>
+                            <input type="text" class="form-control" id="cc-lecturer" name="lecturer">
                         </div>
                         <div class="form-group">
-                            <label for="description">Beschreibung</label>
-                            <textarea class="form-control" id="description" name="description"
+                            <label for="cc-description">Beschreibung</label>
+                            <textarea class="form-control" id="cc-description" name="description"
+                                      style="min-width: 100%; max-width: 100%;"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="updateCourseModal" tabindex="-1" role="dialog" aria-labelledby="updateCourseModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" action="/courses/update">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h2 class="modal-title" id="updateCourseModalLabel">Kurs bearbeiten</h2>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="uc-id" name="id" value="-1">
+                        <div class="form-group">
+                            <label for="uc-name">Name</label>
+                            <input type="text" class="form-control" id="uc-name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="uc-lecturer">Dozent</label>
+                            <input type="text" class="form-control" id="uc-lecturer" name="lecturer">
+                        </div>
+                        <div class="form-group">
+                            <label for="uc-description">Beschreibung</label>
+                            <textarea class="form-control" id="uc-description" name="description"
                                       style="min-width: 100%; max-width: 100%;"></textarea>
                         </div>
                     </div>

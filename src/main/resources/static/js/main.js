@@ -11,4 +11,11 @@ $(document).ready(function () {
         });
         $(".updateForm #updateModel").modal();
     });
+
+    $(".btnUpdateCourse").click( function () {
+        $("#uc-id").val($(this).data('id'));
+        $("#uc-name").val($(this).data('name'));
+        $("#uc-description").val($(this).data('description'));
+        $("#uc-lecturer").val($(this).data('lecturer'));
+    });
 });

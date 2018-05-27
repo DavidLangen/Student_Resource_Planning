@@ -37,6 +37,20 @@ public class CourseController {
         return "redirect:/courses";
     }
 
+    @PostMapping(value = "/courses/update")
+    public String updateCourse(
+            @RequestParam("id") long id,
+            @RequestParam("name") String name,
+            @RequestParam("lecturer") String lecturer,
+            @RequestParam("description") String description){
+        Course c = courseService.getCourseById(id);
+        c.setName(name);
+        c.setLecturer(lecturer);
+        c.setDescription(description);
+        courseService.updateCourse(c);
+        return "redirect:/courses";
+    }
+
     @GetMapping("/courses/delete/")
     public String deleteCourse(Model model,@RequestParam("id") String id, @RequestParam(defaultValue = "0") int page)
     {
