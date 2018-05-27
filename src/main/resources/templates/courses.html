@@ -5,6 +5,7 @@
       layout:decorate="~{base}">
 
 <div layout:fragment="page_content" id="page_content">
+    <!--List of courses-->
     <table th:object="${courses}" class="table table-hover">
         <thead>
         <tr>
@@ -21,9 +22,11 @@
             <td th:text="${course.getLecturer()}"></td>
             <td th:text="${course.getDescription()}"></td>
             <td>
+                <!--Button to delete this course-->
                 <a th:href="@{'/courses/delete/?id=' + ${course.getId()}}" class="btn-lg btn-default">
-                    <span class="glyphicon glyphicon-erase"></span>
+                    <span class="glyphicon glyphicon-trash"></span>
                 </a>
+                <!--Button to edit this course-->
                 <a class="btn-lg btn-default btnUpdateCourse" data-toggle="modal" data-target="#updateCourseModal"
                    th:attr="
                         data-id=${course.getId()},
@@ -35,6 +38,8 @@
             </td>
         </tr>
     </table>
+
+    <!--New course button-->
     <div class="row">
         <div class="col-lg-2">
             <button type="button" class="btn-lg btn-primary btn-block" data-toggle="modal"
@@ -43,17 +48,22 @@
             </button>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <ul class="pagination pagination-lg ">
-                <li th:each="number: ${#numbers.sequence(0, courses.totalPages)}"
-                    th:classappend="${currentPage} == ${number} ? 'active' : ''">
-                    <a th:href="@{/courses(page=${number})}" th:text="${number}"></a>
-                </li>
-            </ul>
-        </div>
-    </div>
 
+    <!--Pagination-->
+    <th:block th:if="${courses.getTotalPages() > 0}">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="pagination pagination-lg ">
+                    <li th:each="number: ${#numbers.sequence(0, courses.getTotalPages()-1)}"
+                        th:classappend="${currentPage} == ${number} ? 'active' : ''">
+                        <a th:href="@{/courses(page=${number})}" th:text="${number+1}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </th:block>
+
+    <!--Modal to create a new course-->
     <div class="modal fade" id="createCourseModal" tabindex="-1" role="dialog" aria-labelledby="createCourseModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -89,6 +99,7 @@
         </div>
     </div>
 
+    <!--Modal to edit a course-->
     <div class="modal fade" id="updateCourseModal" tabindex="-1" role="dialog" aria-labelledby="updateCourseModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -124,5 +135,4 @@
             </div>
         </div>
     </div>
-
 </div>

@@ -20,6 +20,7 @@ $(document).ready(function () {
         $(".updateForm #updateModel").modal();
     });
 
+    // fills the inputs of the update course modal
     $(".btnUpdateCourse").click( function () {
         $("#uc-id").val($(this).data('id'));
         $("#uc-name").val($(this).data('name'));
