@@ -1,5 +1,7 @@
 package com.david.Entity;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,15 +25,12 @@ public class LoginUser {
     private String role;
 
     public LoginUser(String username, String password, String role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.locked = false;
+        this(username,password,role,false);
     }
 
     public LoginUser(String username, String password, String role, boolean locked) {
         this.username = username;
-        this.password = password;
+        setPassword(password);
         this.locked = locked;
         this.role = role;
     }
@@ -77,7 +76,7 @@ public class LoginUser {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
 
     public String getRole() {
