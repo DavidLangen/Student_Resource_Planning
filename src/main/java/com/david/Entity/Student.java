@@ -55,7 +55,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(@NotBlank String studentNumber, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String mail, String phone, @NotBlank Date dateOfBirth, Address address, Set<Course> courses) {
+    public Student(@NotBlank String studentNumber, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String mail, String phone, @NotBlank Date dateOfBirth, Address address) {
         this.studentNumber = studentNumber;
         this.firstName = firstName;
         this.lastName = lastName;

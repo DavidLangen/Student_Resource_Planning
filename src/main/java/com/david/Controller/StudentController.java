@@ -2,10 +2,12 @@ package com.david.Controller;
 
 import com.david.Entity.Address;import com.david.Entity.Address;
 import com.david.Entity.Course;import com.david.Entity.Student;
+import com.david.Repository.CourseRepo;
 import com.david.Service.StudentService;
 import com.david.Service.UserDetailsServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jdk.nashorn.internal.runtime.logging.DebugLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,10 @@ import org.thymeleaf.util.Validate;
 
 import javax.validation.Valid;
 import java.awt.*;
-import java.util.Date;import java.util.List;
+import java.io.Console;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -38,7 +43,7 @@ public class StudentController {
     }
 
     @PostMapping(value = "/students/create")
-    public String createCStudent(
+    public String createStudent(
             @RequestParam("studentNumberCreate") String studentNumber,
             @RequestParam("firstNameCreate") String firstName,
             @RequestParam("lastNameCreate") String lastName,
@@ -48,20 +53,18 @@ public class StudentController {
             @RequestParam("ZipCreate") String zip,
             @RequestParam("TownCreate") String town,
             @RequestParam("StreetCreate") String street,
-            @RequestParam("HouseNumberCreate") String houseNumber,
-            @RequestParam("coursesCreate") String courses
+            @RequestParam("HouseNumberCreate") String houseNumber
             )
     {
         // create a new student
-        String[] dateParts = birth.split(".");
-        Set<Course> coursesSet = null;
+        String[] dateParts = birth.split("-");
         Address address = new Address(zip, town, street, houseNumber);
         Student s = new Student(studentNumber, firstName, lastName, mail, phone,
-                new Date(Integer.parseInt(dateParts[2]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[0])), address, coursesSet);
+                new Date(Integer.parseInt(dateParts[2]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[0])), address);
 
         // persist the new Student
         studentService.AddStudent(s);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/findStudentById")
