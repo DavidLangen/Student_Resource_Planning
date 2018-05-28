@@ -40,8 +40,14 @@
             </tr>
             </tbody>
         </table>
-        <ul class="pagination pagination-lg ">
+        <ul class="pagination pagination-lg " th:if="${students.totalPages -1} >= 0">
             <li th:each="number: ${#numbers.sequence(0, students.totalPages -1 )}"
+                th:classappend="${currentPage} == ${number} ? 'active' : ''">
+                <a th:href="@{/(page=${number})}" th:text="${number}"></a>
+            </li>
+        </ul>
+        <ul class="pagination pagination-lg " th:if="${students.totalPages -1} < 0">
+            <li th:each="number: ${#numbers.sequence(0,0 )}"
                 th:classappend="${currentPage} == ${number} ? 'active' : ''">
                 <a th:href="@{/(page=${number})}" th:text="${number}"></a>
             </li>
