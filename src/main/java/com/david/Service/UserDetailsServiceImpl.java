@@ -11,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -51,9 +50,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @PostConstruct
     private void initUser() {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        saveUser(new LoginUser("max",encoder.encode("hart"),"ROLE_USER", true));
-        saveUser(new LoginUser("david",encoder.encode("password"),"ROLE_ADMIN"));
+        saveUser(new LoginUser("max","hart","ROLE_USER", true));
+        saveUser(new LoginUser("david","password","ROLE_ADMIN"));
     }
 
     public class UserAdapter implements UserDetails {

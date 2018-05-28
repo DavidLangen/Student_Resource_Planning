@@ -9,13 +9,22 @@ $(document).ready(function () {
         event.preventDefault(); //no request to the server
         var href = $(this).attr('href');
 
-        $.get(href, function(student, status){
+        $.get(href, function(jsonobject, status){
+            var student = JSON.parse(jsonobject);
+            var date = new Date(student.dateOfBirth);
             $(".updateForm #firstname").val(student.firstName);
             $(".updateForm #lastname").val(student.lastName);
             $(".updateForm #mail").val(student.mail);
             $(".updateForm #phone").val(student.phone);
-            $(".updateForm #dateOfBirth").val(student.dateOfBirth.substring(0, 10));
+            $(".updateForm #dateOfBirth").val(date.toLocaleDateString('de-DE',{ month: '2-digit', day: '2-digit', year: 'numeric'}));
             $(".updateForm #studentname").text(student.firstName +" " + student.lastName + " ("+student.studentNumber+")");
+            $(".updateForm #studentNumber").val(student.studentNumber);
+            $(".updateForm #adressID").val(student.address.id);
+            $(".updateForm #id").val(student.id);
+            $(".updateForm #town").val(student.address.town);
+            $(".updateForm #zip").val(student.address.zip);
+            $(".updateForm #street").val(student.address.street);
+            $(".updateForm #house_number").val(student.address.houseNumber);
         });
         $(".updateForm #updateModel").modal();
     });

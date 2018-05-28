@@ -1,21 +1,31 @@
 package com.david.Controller;
 
-import com.david.Entity.Address;
-import com.david.Entity.Course;
-import com.david.Entity.Student;
+import com.david.Entity.Address;import com.david.Entity.Address;
+import com.david.Entity.Course;import com.david.Entity.Student;
 import com.david.Service.StudentService;
 import com.david.Service.UserDetailsServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.Validate;
 
-import java.util.Date;
-import java.util.List;
+import javax.validation.Valid;
+import java.awt.*;
+import java.util.Date;import java.util.List;
 import java.util.Set;
 
 @Controller
+@ControllerAdvice
 public class StudentController {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private StudentService studentService;
@@ -56,13 +66,25 @@ public class StudentController {
 
     @GetMapping("/findStudentById")
     @ResponseBody
-    public Student student(long id) {
-        return studentService.getStudentById(id);
+    public String student(long id) {
+        ObjectMapper om = new ObjectMapper();
+        String jsonResponse = "";
+        try {
+            jsonResponse = om.writeValueAsString(studentService.getStudentById(id));
+        }catch (JsonProcessingException e){
+            jsonResponse = e.getMessage();
+        }
+
+        return jsonResponse;
     }
 
     @PostMapping(value = "/updateStudent")
-    public String updateStudent(@ModelAttribute("student") Student s){
+    public String updateStudent(@ModelAttribute @Valid Student s, @ModelAttribute @Valid Address a, BindingResult result, Model model, @RequestParam(defaultValue = "") String search, @RequestParam(defaultValue = "0") int page){
+        logger.info("Addresse"+a);
+        s.setAddress(a);
         studentService.updateStudent(s);
+        model.addAttribute("students",studentService.findByName(search, page));
+        model.addAttribute("currentPage", page);
         return "redirect:/";
     }
 

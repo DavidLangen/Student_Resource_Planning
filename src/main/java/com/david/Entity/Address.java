@@ -3,7 +3,6 @@ package com.david.Entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-
 @Entity
 @Table(name = "address")
 public class Address {
@@ -28,8 +27,7 @@ public class Address {
     @Column(name = "house_number")
     private String houseNumber;
 
-    @OneToOne(fetch=FetchType.LAZY, mappedBy="address")
-    private Student student;
+
 
     public Address(@NotBlank String zip, @NotBlank String town, @NotBlank String street, @NotBlank String houseNumber) {
         this.zip = zip;
@@ -81,11 +79,14 @@ public class Address {
         this.houseNumber = houseNumber;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", zip='" + zip + '\'' +
+                ", town='" + town + '\'' +
+                ", street='" + street + '\'' +
+                ", houseNumber='" + houseNumber + '\'' +
+                '}';
     }
 }
