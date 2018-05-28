@@ -7,14 +7,26 @@
     <div layout:fragment="page_content" id="page_content">
         <table th:object="${students}" id="userTable" border="1">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Kurs</th>
+                <th>Student ID</th>
+                <th>Student Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Course</th>
+                <th>Phone</th>
+                <th>Date Of Birth</th>
+                <th>Address</th>
+                <th>Mail</th>
             </tr>
             <tr th:each="student :${students.content}">
                 <td  th:text="${student.getId()}"></td>
+                <td  th:text="${student.getStudentNumber()}"></td>
                 <td  th:text="${student.getFirstName()}"></td>
+                <td  th:text="${student.getLastName()}"></td>
                 <td  th:text="${student.getCourse()}"></td>
+                <td  th:text="${student.getPhone()}"></td>
+                <td  th:text="${student.getDateOfBirth()}"></td>
+                <td  th:text="${student.getAddress()}"></td>
+                <td  th:text="${student.getMail()}"></td>
             </tr>
         </table>
         <div class="row">
@@ -30,7 +42,7 @@
                 <a th:href="@{/students(page=${number})}" th:text="${number}"></a>
             </li>
         </ul>
-        <div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="createCourseModalLabel"
+        <div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="createStudentModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -43,17 +55,36 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="name">ID</label>
-                                <input type="text" class="form-control" id="name" name="name">
+                                <label for="studentNumber">student Number</label>
+                                <input type="text" class="form-control" id="studentNumber" name="studentNumber">
                             </div>
                             <div class="form-group">
-                                <label for="lecturer">Name</label>
-                                <input type="text" class="form-control" id="lecturer" name="lecturer">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName">
                             </div>
                             <div class="form-group">
-                                <label for="description">Kurs</label>
-                                <textarea class="form-control" id="description" name="description"
-                                          style="min-width: 100%; max-width: 100%;"></textarea>
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName">
+                            </div>
+                            <div class="form-group">
+                                <label for="mail">Mail</label>
+                                <input type="text" class="form-control" id="mail" name="mail">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="number" class="form-control" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="dateOfBirth">date Of Birth</label>
+                                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control" id="address" name="address">
+                            </div>
+                            <div class="form-group">
+                                <label for="courses">Courses</label>
+                                <input type="text" class="form-control" id="courses" name="courses">
                             </div>
                         </div>
                         <div class="modal-footer">
