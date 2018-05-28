@@ -1,13 +1,14 @@
 package com.david.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 
 @Entity
 @Table(name = "students")
@@ -17,7 +18,7 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
+
     @Column(name = "student_number")
     private String studentNumber;
 
@@ -36,12 +37,12 @@ public class Student {
     @Column(name = "phone")
     private String phone;
 
-    @NotBlank
+    @NotNull
+    @DateTimeFormat(pattern = "dd.mm.yyyy", iso = DateTimeFormat.ISO.DATE)
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
-    @JsonIgnore
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="ADDRESS_ID")
     private Address address;
 
