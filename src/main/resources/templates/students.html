@@ -29,72 +29,12 @@
                 <td  th:text="${student.getMail()}"></td>
             </tr>
         </table>
-        <div class="row">
-            <div class="col-lg-2">
-                <button type="button" class="btn-lg btn-primary btn-block sBtn" data-toggle="modal"
-                        data-target="#createStudentModal">
-                    Neuer Student
-                </button>
-            </div>
-        </div>
         <ul class="pagination pagination-lg ">
             <li  th:each="number: ${#numbers.sequence(0, students.totalPages -1 )}"  th:classappend="${currentPage} == ${number} ? 'active' : ''">
                 <a th:href="@{/students(page=${number})}" th:text="${number}"></a>
             </li>
         </ul>
-        <div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="createStudentModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form method="post" action="/students/create">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="exampleModalLabel">Neuen Studenten erstellen</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="studentNumber">student Number</label>
-                                <input type="text" class="form-control" id="studentNumber" name="studentNumber">
-                            </div>
-                            <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName">
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName">
-                            </div>
-                            <div class="form-group">
-                                <label for="mail">Mail</label>
-                                <input type="text" class="form-control" id="mail" name="mail">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="number" class="form-control" id="phone" name="phone">
-                            </div>
-                            <div class="form-group">
-                                <label for="dateOfBirth">date Of Birth</label>
-                                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth">
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Address</label>
-                                <input type="text" class="form-control" id="address" name="address">
-                            </div>
-                            <div class="form-group">
-                                <label for="courses">Courses</label>
-                                <input type="text" class="form-control" id="courses" name="courses">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                            <button type="submit" class="btn btn-primary">Speichern</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+
     </div>
 
 

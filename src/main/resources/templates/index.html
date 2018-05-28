@@ -47,7 +47,79 @@
             </li>
         </ul>
     </form>
-
+    <div class="row">
+        <div class="col-lg-2">
+            <button type="button" class="btn-lg btn-primary btn-block sBtn" data-toggle="modal"
+                    data-target="#createStudentModal">
+                Neuer Student
+            </button>
+        </div>
+    </div>
+    <div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="createStudentModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" action="/students/create">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="ModalLabel">Neuen Studenten erstellen</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="studentNumberCreate">student Number</label>
+                            <input type="text" class="form-control" id="studentNumberCreate" name="studentNumberCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstNameCreate">First Name</label>
+                            <input type="text" class="form-control" id="firstNameCreate" name="firstNameCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastNameCreate">Last Name</label>
+                            <input type="text" class="form-control" id="lastNameCreate" name="lastNameCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="mailCreate">Mail</label>
+                            <input type="text" class="form-control" id="mailCreate" name="mailCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneCreate">Phone</label>
+                            <input type="number" class="form-control" id="phoneCreate" name="phoneCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="dateOfBirthCreate">date Of Birth</label>
+                            <input type="text" class="form-control" id="dateOfBirthCreate" name="dateOfBirthCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="ZipCreate">Address</label>
+                            <input type="number" class="form-control" id="ZipCreate" name="ZipCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="TownCreate">Address</label>
+                            <input type="text" class="form-control" id="TownCreate" name="TownCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="StreetCreate">Address</label>
+                            <input type="text" class="form-control" id="StreetCreate" name="StreetCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="HouseNumberCreate">Address</label>
+                            <input type="number" class="form-control" id="HouseNumberCreate" name="HouseNumberCreate">
+                        </div>
+                        <div class="form-group">
+                            <label for="coursesCreate">Courses</label>
+                            <input type="text" class="form-control" id="coursesCreate" name="coursesCreate">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="updateForm">
         <form th:action="@{/updateStudent}" method="post">
             <div class="modal fade" id="updateModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

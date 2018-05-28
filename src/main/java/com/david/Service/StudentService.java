@@ -24,6 +24,11 @@ public class StudentService {
         return this.studentRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Student", "Id", id));
     }
 
+    public void AddStudent(Student newStudent)
+    {
+        studentRepo.save(newStudent);
+    }
+
     public Page<Student> findByName(String name, int page) {
         Page<Student> res = studentRepo.findByFirstNameStartingWithIgnoreCaseOrLastNameStartingWithIgnoreCase(name, name, PageRequest.of(page, PAGEROW_SIZE));
         return res;
