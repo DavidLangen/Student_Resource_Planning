@@ -43,13 +43,27 @@ public class Course {
     /**
      * The students taking this course.
      */
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade =
+                    {
+                            CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            CascadeType.PERSIST
+                    },
+            targetEntity = Course.class)
+    @JoinTable(name = "student_course",
+            inverseJoinColumns = @JoinColumn(name = "course_id", nullable = false, updatable = false),
+            joinColumns = @JoinColumn(name = "student_id", nullable = false, updatable = false),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<Student> students;
 
     /**
      * A standard constructor filling all properties of a course object.
-     * @param name The name of this course.
-     * @param lecturer The lecturer this course is held by.
+     *
+     * @param name        The name of this course.
+     * @param lecturer    The lecturer this course is held by.
      * @param description The description of this course.
      */
     public Course(@NotBlank String name, @NotBlank String lecturer, @NotBlank String description) {
@@ -61,10 +75,12 @@ public class Course {
     /**
      * A default constructor.
      */
-    public Course() {}
+    public Course() {
+    }
 
     /**
      * Gets the id of this course.
+     *
      * @return The id of this course.
      */
     public long getId() {
@@ -73,6 +89,7 @@ public class Course {
 
     /**
      * Gets the name of this course.
+     *
      * @return The name of this course.
      */
     public String getName() {
@@ -81,6 +98,7 @@ public class Course {
 
     /**
      * Sets the name of this course.
+     *
      * @param name The name to be set.
      */
     public void setName(String name) {
@@ -89,6 +107,7 @@ public class Course {
 
     /**
      * Gets the name of the lecturer this course is held by.
+     *
      * @return The name of the lecturer this course is held by.
      */
     public String getLecturer() {
@@ -97,14 +116,16 @@ public class Course {
 
     /**
      * Sets the name of the lecturer this course is held by.
+     *
      * @param lecturer The name of lecturer to be set.
      */
     public void setLecturer(String lecturer) {
-        this.lecturer= lecturer;
+        this.lecturer = lecturer;
     }
 
     /**
      * Gets the description of this course.
+     *
      * @return The description of this course.
      */
     public String getDescription() {
@@ -113,14 +134,16 @@ public class Course {
 
     /**
      * Sets the description of this course.
+     *
      * @param description The description to be set.
      */
     public void setDescription(String description) {
-        this.description= description;
+        this.description = description;
     }
 
     /**
      * Gets all students associated to this course.
+     *
      * @return A Set of Students.
      */
     public Set<Student> getStudents() {
