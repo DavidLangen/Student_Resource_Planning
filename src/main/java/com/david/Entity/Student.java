@@ -42,14 +42,25 @@ public class Student {
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
-    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="ADDRESS_ID")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade =
+                    {
+                            CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            CascadeType.PERSIST
+                    },
+            targetEntity = Student.class)
+    @JoinTable(name = "student_course",
+            joinColumns = @JoinColumn(name = "course_id", nullable = false, updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "student_id", nullable = false, updatable = false),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<Course> courses;
 
     public Student() {
@@ -134,9 +145,8 @@ public class Student {
         return courses;
     }
 
-    public String getCourse()
-    {
-        return courses.stream().map(s->s.toString()).collect(Collectors.joining(","));
+    public String getCourse() {
+        return courses.stream().map(s -> s.toString()).collect(Collectors.joining(","));
     }
 
     public void setCourses(Set<Course> courses) {
