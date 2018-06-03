@@ -114,9 +114,25 @@
                             <label for="HouseNumberCreate">Number</label>
                             <input type="number" class="form-control" id="HouseNumberCreate" name="HouseNumberCreate">
                         </div>
+                        <select class="courseSelection" >
+                        </select>
+                        <button class="button-bar addCourse" type="button">Kurs hinzufügen</button>
+                        <table class="table table-bordered coursesTable">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Dozent</th>
+                                <th>Beschreibung</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                        <button type="button" class="btn btn-secondary cancelModal" data-dismiss="modal">Abbrechen</button>
                         <button type="submit" class="btn btn-primary">Speichern</button>
                     </div>
                 </form>
@@ -195,10 +211,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <select class="courseSelection" >
+                            </select>
+                            <button class="button-bar addCourse" type="button">Kurs hinzufügen</button>
+                            <table class="table table-bordered coursesTable">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Dozent</th>
+                                    <th>Beschreibung</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                            <button type="button" class="btn btn-secondary cancelModal" data-dismiss="modal">Abbrechen</button>
                             <input type="submit" class="btn btn-primary" value="Speichern"/>
                         </div>
                     </div>

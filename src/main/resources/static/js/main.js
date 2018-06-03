@@ -29,6 +29,56 @@ $(document).ready(function () {
         $(".updateForm #updateModel").modal();
     });
 
+    //fill select box with courses
+    $(".sBtn").on("click",function () {
+        if($(".courseSelection").children().length <= 0) {
+            $.get("courses/raw", function (courses, status) {
+                $.each(courses, function (i, item) {
+                    $(".courseSelection").append($('<option>', {
+                        value: item.id,
+                        text: item.name
+                    }));
+                });
+            });
+        }
+    });
+
+    //add course to table in the student create model
+    $(".updateForm .addCourse").on("click", function () {
+        addCourseToTableByContext(".updateForm");
+    });
+
+    //add course to table in the student update model
+    $(".addCourse").on("click", function () {
+        addCourseToTableByContext("#createStudentModal");
+    });
+
+    $(".cancelModal").on("click", function () {
+       $(".coursesTable tbody").empty();
+    });
+
+    function addCourseToTableByContext(context){
+        var courseid = $(context+" .courseSelection").val();
+
+        var coursidExists = false;
+        $(context+' .coursesTable input[name="courseids[]"]').each(function(){
+            if($(this).val() == courseid) courseid = true;
+        });
+        if(!coursidExists) {
+            $.get("/courses/find/?id=" + courseid, function (course, status) {
+                $(context+" .coursesTable tbody").last()
+                    .append("<tr>" +
+                        "<td>" + course.id + "</td>" +
+                        "<td>" + course.name + "</td>" +
+                        "<td>" + course.lecturer + "</td>" +
+                        "<td>" + course.description + "</td>" +
+                        "<td><button type=\"button\" onClick=\"$(this).closest('tr').remove();\"><span class=\"glyphicon glyphicon-trash\"></span></button>" +
+                        "<input type='hidden' name='courseids[]' value='" + course.id + "' /></td>" +
+                        "</tr>")
+            })
+        }
+    }
+
     // fills the inputs of the update course modal
     $(".btnUpdateCourse").click( function () {
         $("#uc-id").val($(this).data('id'));
