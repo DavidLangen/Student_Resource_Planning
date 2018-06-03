@@ -10,7 +10,7 @@ $(document).ready(function () {
         var href = $(this).attr('href');
 
         $.get(href, function(jsonobject, status){
-            var student = JSON.parse(jsonobject);
+            var student = jsonobject;
             var date = new Date(student.dateOfBirth);
             $(".updateForm #firstname").val(student.firstName);
             $(".updateForm #lastname").val(student.lastName);

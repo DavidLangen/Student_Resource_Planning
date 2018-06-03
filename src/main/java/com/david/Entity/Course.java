@@ -1,5 +1,7 @@
 package com.david.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
@@ -43,6 +45,7 @@ public class Course {
     /**
      * The students taking this course.
      */
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade =
                     {
@@ -148,5 +151,14 @@ public class Course {
      */
     public Set<Student> getStudents() {
         return students;
+    }
+
+    /**
+     * Sets all students associated to this course.
+     *
+     * @param students The Set of Students this Course is associated to.
+     */
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 }

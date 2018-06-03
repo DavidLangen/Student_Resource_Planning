@@ -1,5 +1,6 @@
 package com.david.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -46,7 +47,7 @@ public class Student {
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade =
                     {
@@ -74,7 +75,7 @@ public class Student {
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
-        this.courses = courses;
+        //this.courses = courses;
     }
 
     public long getId() {
@@ -143,10 +144,6 @@ public class Student {
 
     public Set<Course> getCourses() {
         return courses;
-    }
-
-    public String getCourse() {
-        return courses.stream().map(s -> s.toString()).collect(Collectors.joining(","));
     }
 
     public void setCourses(Set<Course> courses) {

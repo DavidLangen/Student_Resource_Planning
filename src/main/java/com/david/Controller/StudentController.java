@@ -1,30 +1,19 @@
 package com.david.Controller;
 
-import com.david.Entity.Address;import com.david.Entity.Address;
-import com.david.Entity.Course;import com.david.Entity.Student;
-import com.david.Repository.CourseRepo;
+import com.david.Entity.Address;
+import com.david.Entity.Student;
 import com.david.Service.StudentService;
-import com.david.Service.UserDetailsServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.Validate;
 
 import javax.validation.Valid;
-import java.awt.*;
-import java.io.Console;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @ControllerAdvice
@@ -69,16 +58,8 @@ public class StudentController {
 
     @GetMapping("/findStudentById")
     @ResponseBody
-    public String student(long id) {
-        ObjectMapper om = new ObjectMapper();
-        String jsonResponse = "";
-        try {
-            jsonResponse = om.writeValueAsString(studentService.getStudentById(id));
-        }catch (JsonProcessingException e){
-            jsonResponse = e.getMessage();
-        }
-
-        return jsonResponse;
+    public Student student(long id) {
+        return studentService.getStudentById(id);
     }
 
     @PostMapping(value = "/updateStudent")
