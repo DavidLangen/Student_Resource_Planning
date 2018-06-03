@@ -3,6 +3,7 @@ package com.david.Controller;
 import com.david.Entity.Course;
 import com.david.Exceptions.ResourceNotFoundException;
 import com.david.Repository.CourseRepo;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * This controller handles incoming requests concerning the courses.
@@ -103,5 +105,28 @@ public class CourseController {
         // delete the course
         courseRepo.delete(c);
         return "redirect:/courses";
+    }
+
+    /**
+     * This controller method handles get-requests to "/courses/raw/".
+     * It responds with a list courses.
+     * @return Iterable<Course>
+     */
+    @GetMapping("/courses/raw")
+    @ResponseBody
+    public Iterable<Course> coursesRaw(){
+        return courseRepo.findAll();
+    }
+
+    /**
+     *  This controller method handles get-requests to "/courses/find/".
+     *  It find course by id and return it.
+     * @param id The id of the searched course
+     * @return Course
+     */
+    @GetMapping("/courses/find/")
+    @ResponseBody
+    public Course findCourseById(long id){
+        return courseRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Course", "id", id));
     }
 }
