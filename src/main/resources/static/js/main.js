@@ -30,7 +30,7 @@ $(document).ready(function () {
     });
 
     //fill select box with courses
-    $(".sBtn").on("click",function () {
+    $(".sBtn, .eBtn").on("click",function () {
         if($(".courseSelection").children().length <= 0) {
             $.get("courses/raw", function (courses, status) {
                 $.each(courses, function (i, item) {
