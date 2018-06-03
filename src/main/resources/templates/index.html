@@ -11,7 +11,7 @@
             <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
         </div>
     </form>
-    <form method="post" action="/">
+    <form method="post" action="/students/delete">
         <button class="btn btn-default" type="submit">Löschen</button>
         <table class="table table-hover">
             <thead>
@@ -36,7 +36,7 @@
                 <td th:text="${student.getAddress().getStreet() + ' ' + student.getAddress().getHouseNumber()}"></td>
                 <td th:text="${student.getAddress().getTown()}"></td>
                 <td th:text="${student.getAddress().getZip()}"></td>
-                <td><a th:href="@{findStudentById/(id=${student.getId()})}" class="btn btn-default eBtn">Ändern</a></td>
+                <td><a th:href="@{student/find/(id=${student.getId()})}" class="btn btn-default eBtn">Ändern</a></td>
             </tr>
             </tbody>
         </table>
@@ -140,7 +140,7 @@
         </div>
     </div>
     <div class="updateForm">
-        <form th:action="@{/updateStudent}" method="post">
+        <form th:action="@{/student/update}" method="post">
             <div class="modal fade" id="updateModel" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

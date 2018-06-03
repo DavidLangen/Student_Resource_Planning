@@ -10,6 +10,7 @@ import java.util.Vector;
 /**
  * This class is a custom implementation of UserDetails and wrapped also
  * the LoginUser class.
+ * @author David Langen
  */
 public class UserAdapter implements UserDetails {
 
