@@ -1,5 +1,6 @@
 package com.david.Component;
 
+import com.david.Entity.UserAdapter;
 import com.david.Service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,18 +32,16 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 
         logger.info("AT onAuthenticationSuccess(...) function!");
 
-        UserDetailsServiceImpl.UserAdapter user = (UserDetailsServiceImpl.UserAdapter) authentication.getPrincipal();
+        UserAdapter user = (UserAdapter) authentication.getPrincipal();
 
         logger.info("Username:"+user.getUsername());
         logger.info("Locked?:"+user.isLocked());
 
 
         if(user.isLocked()){
-            //TODO handle locked user
             logger.info("User is locked.");
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             authentication.setAuthenticated(false);
-            response.getWriter().write("Dein Account wurde leider gesperrt!:C");
+            response.sendRedirect("/");
         }else{
             //set our response to OK status
             response.setStatus(HttpServletResponse.SC_OK);

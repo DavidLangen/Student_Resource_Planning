@@ -18,10 +18,10 @@
         <tbody>
         <tr th:each="u :${user.content}">
             <td th:text="${u.getId()}"></td>
-            <td th:text="${u.getRole()}"></td>
             <td th:text="${u.getUsername()}"></td>
+            <td th:text="${u.getRole()}"></td>
             <td th:text="${u.isLocked()} ? Gesperrt : Zugriff"></td>
-            <td><a th:href="@{lockUserById/(id=${u.getId()})}" th:text="${u.isLocked()} ? Entsperren : Sperren"
+            <td><a th:href="@{/user/lock/(id=${u.getId()})}" th:text="${u.isLocked()} ? Entsperren : Sperren"
                    class="btn btn-default ebtn"></a></td>
         </tr>
         </tbody>
@@ -66,7 +66,7 @@
                             <label>Role</label>
                             <select id="role" name="role">
                                 <option value="ROLE_ADMIN">Admin</option>
-                                <option value="ROLE_User">User</option>
+                                <option value="ROLE_USER">User</option>
                             </select>
                         </div>
                     </div>

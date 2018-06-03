@@ -16,7 +16,7 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Id</th>
+                <th>Imm.</th>
                 <th>Makieren</th>
                 <th>Name</th>
                 <th>E-mail</th>
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
             <tr th:each="student :${students.content}">
-                <td th:text="${student.getId()}"></td>
+                <td th:text="${student.getStudentNumber()}"></td>
                 <td><input type="checkbox" class="styled" name="id" th:value="${student.getId()}"></td>
                 <td th:text="${student.getFirstName() +' '+ student.getLastName()}"></td>
                 <td th:text="${student.getMail()}"></td>
