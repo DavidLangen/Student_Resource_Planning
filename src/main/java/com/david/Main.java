@@ -11,22 +11,10 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 	}
 
-	// TO-DO
-
-	// login
-
-	// Kurs hinzufügen GUI
-	// Kurs löschen
-	// kurs ändern
-	// Kurs index
-
-	// Studenten ändern fix
-	// Student löschen fix
-	// Studenten hinzufügen
-
-
+	//TODO
 	// Zuordnung Studenten Kurse
-	// Validierung
-
-	//
+	// Plausibilität (Email, Datum, Name, etc.)
+	// current Page anzeigen beim löschen von Studenten (nicht makiert)
+	// Rückmeldung beim geblockten User (Access denied)
+	// Bei der Userverwaltung darf der aktuelle User nicht auftauchen
 }

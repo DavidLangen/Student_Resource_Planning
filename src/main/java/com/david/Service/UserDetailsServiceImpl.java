@@ -1,6 +1,7 @@
 package com.david.Service;
 
 import com.david.Entity.LoginUser;
+import com.david.Entity.UserAdapter;
 import com.david.Exceptions.ResourceNotFoundException;
 import com.david.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,31 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
+/**
+ * This Service is a Wrapper-Class for the User Repository.
+ * It´s wrapped Repository Methods and do some extra actions.
+ * @author David Langen
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    /**
+     * The User Repository, which is strongly linked with the database
+     */
     @Autowired
     private UserRepo userRepository;
 
+    /**
+     * Determines the size of pages used in the pagination for the user.
+     */
     private static int PAGEROW_SIZE = 5;
 
+    /**
+     * This service method find details about an User from the database.
+     * @param username of the User
+     * @throws UsernameNotFoundException
+     * @return UserDetails of the searched User
+     */
     @Override
     public UserDetails loadUserByUsername(String username) {
         LoginUser loginUser = userRepository.findByUsername(username);
@@ -36,67 +54,41 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new UserAdapter(loginUser);
     }
 
+    /**
+     * This service method find all LoginUser in the database.
+     * @param page the current page number
+     * @return sorted LoginUser with the current page
+     */
     public Page<LoginUser> getAllUser(int page){
-        return userRepository.findAll(PageRequest.of(page, PAGEROW_SIZE));
+        return userRepository.findAllByRoleEquals("ROLE_USER", PageRequest.of(page, PAGEROW_SIZE));
     }
 
+    /**
+     * This service method find a LoginUser or throws an exception.
+     * @param id of the User
+     * @throws ResourceNotFoundException
+     * @return LoginUser object
+     */
     public LoginUser getUserById(long id){
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User","id",id));
     }
 
+    /**
+     * This service method save a LoginUser in the database.
+     * @param user to be saved
+     */
     public void saveUser(LoginUser user){
         userRepository.save(user);
     }
 
+    /**
+     * Created LoginUser by starting the Application
+     */
     @PostConstruct
     private void initUser() {
         saveUser(new LoginUser("max","hart","ROLE_USER", true));
         saveUser(new LoginUser("david","password","ROLE_ADMIN"));
     }
-
-    public class UserAdapter implements UserDetails {
-        private static final long serialVersionUID = -1360188483928178893L;
-        private LoginUser user;
-        public UserAdapter(LoginUser user) {
-            this.user = user;
-        }
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            List<GrantedAuthority> authorities = new Vector<>();
-            authorities.add(new SimpleGrantedAuthority(user.getRole()));
-            return authorities;
-        }
-        @Override
-        public String getPassword() {
-            return user.getPassword();
-        }
-        @Override
-        public String getUsername() {
-            return user.getUsername();
-        }
-        @Override
-        public boolean isAccountNonExpired() {
-            return true;
-        }
-        @Override
-        public boolean isAccountNonLocked() {
-            return true;
-        }
-        @Override
-        public boolean isCredentialsNonExpired() {
-            return true;
-        }
-        @Override
-        public boolean isEnabled() {
-            return true;
-        }
-
-        public boolean isLocked(){
-            return user.isLocked();
-        }
-    }
-
-
 }
 
 

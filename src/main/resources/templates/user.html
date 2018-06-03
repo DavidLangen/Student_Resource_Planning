@@ -21,7 +21,7 @@
             <td th:text="${u.getUsername()}"></td>
             <td th:text="${u.getRole()}"></td>
             <td th:text="${u.isLocked()} ? Gesperrt : Zugriff"></td>
-            <td><a th:href="@{lockUserById/(id=${u.getId()})}" th:text="${u.isLocked()} ? Entsperren : Sperren"
+            <td><a th:href="@{/user/lock/(id=${u.getId()})}" th:text="${u.isLocked()} ? Entsperren : Sperren"
                    class="btn btn-default ebtn"></a></td>
         </tr>
         </tbody>

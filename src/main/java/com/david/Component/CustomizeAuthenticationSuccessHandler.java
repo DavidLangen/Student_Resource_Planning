@@ -1,5 +1,6 @@
 package com.david.Component;
 
+import com.david.Entity.UserAdapter;
 import com.david.Service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 
         logger.info("AT onAuthenticationSuccess(...) function!");
 
-        UserDetailsServiceImpl.UserAdapter user = (UserDetailsServiceImpl.UserAdapter) authentication.getPrincipal();
+        UserAdapter user = (UserAdapter) authentication.getPrincipal();
 
         logger.info("Username:"+user.getUsername());
         logger.info("Locked?:"+user.isLocked());
