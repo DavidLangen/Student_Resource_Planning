@@ -38,11 +38,9 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 
 
         if(user.isLocked()){
-            //TODO handle locked user
             logger.info("User is locked.");
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             authentication.setAuthenticated(false);
-            response.getWriter().write("Dein Account wurde leider gesperrt!:C");
+            response.sendRedirect("/");
         }else{
             //set our response to OK status
             response.setStatus(HttpServletResponse.SC_OK);
