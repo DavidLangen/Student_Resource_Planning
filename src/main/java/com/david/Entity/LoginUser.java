@@ -1,5 +1,6 @@
 package com.david.Entity;
 
+import com.david.Global.UserRoles;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -40,7 +41,7 @@ public class LoginUser {
      * The role of the User
      */
     @Column(name = "role")
-    private String role;
+    protected String role;
 
     /**
      * A special constructor filling all properties of a user object
@@ -49,7 +50,7 @@ public class LoginUser {
      * @param password  The password of the User (will be crypted)
      * @param role      The role of the User
      */
-    public LoginUser(String username, String password, String role) {
+    public LoginUser(String username, String password, UserRoles role) {
         this(username,password,role,false);
     }
     /**
@@ -59,11 +60,11 @@ public class LoginUser {
      * @param role      The role of the User
      * @param locked    The lock state of the User
      */
-    public LoginUser(String username, String password, String role, boolean locked) {
+    public LoginUser(String username, String password, UserRoles role, boolean locked) {
         this.username = username;
         setPassword(password);
         this.locked = locked;
-        this.role = role;
+        this.role = role.toString();
     }
 
     /**

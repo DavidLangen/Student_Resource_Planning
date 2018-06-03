@@ -3,6 +3,7 @@ package com.david.Service;
 import com.david.Entity.LoginUser;
 import com.david.Entity.UserAdapter;
 import com.david.Exceptions.ResourceNotFoundException;
+import com.david.Global.UserRoles;
 import com.david.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -60,7 +61,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @return sorted LoginUser with the current page
      */
     public Page<LoginUser> getAllUser(int page){
-        return userRepository.findAllByRoleEquals("ROLE_USER", PageRequest.of(page, PAGEROW_SIZE));
+        return userRepository.findAllByRoleEquals(UserRoles.USER.toString(), PageRequest.of(page, PAGEROW_SIZE));
     }
 
     /**
@@ -86,8 +87,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @PostConstruct
     private void initUser() {
-        saveUser(new LoginUser("max","hart","ROLE_USER", true));
-        saveUser(new LoginUser("david","password","ROLE_ADMIN"));
+        saveUser(new LoginUser("max","hart",UserRoles.USER, true));
+        saveUser(new LoginUser("david","password",UserRoles.ADMIN));
     }
 }
 
