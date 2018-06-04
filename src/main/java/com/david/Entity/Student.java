@@ -19,7 +19,6 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
     @Column(name = "student_number")
     private String studentNumber;
 

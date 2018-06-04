@@ -5,6 +5,12 @@
       layout:decorate="~{base}">
 
 <div layout:fragment="page_content" id="page_content">
+
+
+    <div th:if="${formFieldError}">
+        <div th:text="${formFieldError}" class="alert alert-danger"></div>
+    </div>
+
     <!--List of courses-->
     <table th:object="${courses}" class="table table-hover">
         <thead>

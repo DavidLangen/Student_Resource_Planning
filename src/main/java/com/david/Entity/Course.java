@@ -91,6 +91,14 @@ public class Course {
     }
 
     /**
+     * Sets the id of this course.
+     * @param id The id to be set on this course.
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
      * Gets the name of this course.
      *
      * @return The name of this course.
