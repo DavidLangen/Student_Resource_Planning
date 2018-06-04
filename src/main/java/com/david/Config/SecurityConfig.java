@@ -14,15 +14,30 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+/**
+ * This class implements security configurations
+ * @author David Langen
+ */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * Wrapper-Class for the User Repository
+     */
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * The successhandler for the Login page
+     */
     @Autowired
     private CustomizeAuthenticationSuccessHandler successHandler;
 
+    /**
+     * This method configure the permisson for the requests
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -38,15 +53,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
     }
 
+    /**
+     * This method implements global security configuration and
+     * connect the user repository with the login system.
+     * @param auth The Builder for a AuthenticationManager
+     * @throws Exception
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * This Bean encrypt and decrypted passwords for the database
+     * @return
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }

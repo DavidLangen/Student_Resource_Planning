@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- * This Service is a Wrapper-Class for the User Repository.
+ * This service is a Wrapper-Class for the User Repository.
  * It´s wrapped Repository Methods and do some extra actions.
  * @author David Langen
  */
@@ -56,19 +56,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     /**
-     * This service method find all LoginUser in the database.
+     * This service method returns all LoginUser in the database,
+     * wrapped with the page class.
      * @param page the current page number
-     * @return sorted LoginUser with the current page
+     * @return sorted LoginUser list of the current page
      */
     public Page<LoginUser> getAllUser(int page){
         return userRepository.findAllByRoleEquals(UserRoles.USER.toString(), PageRequest.of(page, PAGEROW_SIZE));
     }
 
     /**
-     * This service method find a LoginUser or throws an exception.
-     * @param id of the User
+     * This service method find a LoginUser by his id or throws an exception.
+     * @param id of the searched User
      * @throws ResourceNotFoundException
-     * @return LoginUser object
+     * @return searched LoginUser object
      */
     public LoginUser getUserById(long id){
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User","id",id));

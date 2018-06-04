@@ -1,6 +1,6 @@
 package com.david.Entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -45,7 +45,6 @@ public class Course {
     /**
      * The students taking this course.
      */
-    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade =
                     {
@@ -55,6 +54,7 @@ public class Course {
                             CascadeType.PERSIST
                     },
             targetEntity = Course.class)
+    @JsonIgnore
     @JoinTable(name = "student_course",
             inverseJoinColumns = @JoinColumn(name = "course_id", nullable = false, updatable = false),
             joinColumns = @JoinColumn(name = "student_id", nullable = false, updatable = false),

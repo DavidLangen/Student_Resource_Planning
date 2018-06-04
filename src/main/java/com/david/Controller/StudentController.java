@@ -15,21 +15,22 @@ import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This controller handles incoming requests concerning the student.
+ * @author David Langen
+ */
 @Controller
 @ControllerAdvice
 public class StudentController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /**
+     * Wrapper class for the Student Repository
+     */
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/students")
-    public String students(Model model,@RequestParam(defaultValue = "0") int page) {
-        model.addAttribute("students",studentService.getAllStudents(page));
-        model.addAttribute("currentPage", page);
-        return "students";
-    }
 
     @PostMapping(value = "/students/create")
     public String createStudent(
@@ -56,22 +57,42 @@ public class StudentController {
         return "redirect:/";
     }
 
-    @GetMapping("/findStudentById")
+    /**
+     * This controller method handles get-request to "/student/find/"
+     * It responds with a parsed Student object.
+     * @param id The id of the searched student
+     * @return Student
+     */
+    @GetMapping("/student/find/")
     @ResponseBody
     public Student student(long id) {
         return studentService.getStudentById(id);
     }
 
-    @PostMapping(value = "/updateStudent")
-    public String updateStudent(@ModelAttribute @Valid Student s, @ModelAttribute @Valid Address a, BindingResult result, Model model, @RequestParam(defaultValue = "") String search, @RequestParam(defaultValue = "0") int page){
+
+    /**
+     * This controller method handles post-requests to "/student/update/"
+     * @param s The parsed student object by spring
+     * @param a The parsed adress object by spring
+     * @param result The result of the Validation
+     * @return A redirect to "/".
+     */
+    @PostMapping(value = "/student/update")
+    public String updateStudent(@Valid Student s, @Valid Address a, BindingResult result){
         logger.info("Addresse"+a);
         s.setAddress(a);
         studentService.updateStudent(s);
-        model.addAttribute("students",studentService.findByName(search, page));
-        model.addAttribute("currentPage", page);
         return "redirect:/";
     }
 
+    /**
+     * This controller method handles get-requests to "/".
+     * It responds with an index view of students or a list of students searched by a searchterm.
+     * @param model The model used in Thymeleaf templating.
+     * @param search The searchterm (default is a empty string)
+     * @param page The current page number
+     * @return the "student"-view
+     */
     @GetMapping("/")
     public String findStudents(Model model, @RequestParam(defaultValue = "") String search, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("students",studentService.findByName(search, page));
@@ -79,14 +100,20 @@ public class StudentController {
         return "index";
     }
 
-    @PostMapping(value = "/")
-    public String deleteStudents(Model model,@RequestParam(defaultValue = "",value="id") List<Integer> ids,@RequestParam(defaultValue = "0") int page)
+    /**
+     * This controller method handles get-requests to "/students/delete".
+     * It is responsible for delete students.
+     * It redirects to "/courses".
+     * @param ids The ids of the student(s) to be deleted.
+     * @return A redirect to "/".
+     */
+    @PostMapping(value = "/students/delete")
+    public String deleteStudents(@RequestParam(defaultValue = "",value="id") List<Integer> ids)
     {
         if(!ids.isEmpty()) {
             ids.stream().forEach(id -> studentService.deleteById(id));
         }
-        model.addAttribute("students", studentService.getAllStudents(page));
-        return "index";
+        return "redirect:/";
     }
 
 
