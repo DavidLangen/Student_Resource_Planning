@@ -30,8 +30,9 @@ public class CourseController {
     private static final int PAGE_SIZE = 10;
 
     private String formFieldError = "";
+	private String errorMsg = "";
 
-    @Autowired
+	@Autowired
     private CourseRepo courseRepo;
 
     /**
@@ -50,6 +51,10 @@ public class CourseController {
         if (formFieldError != "") {
             model.addAttribute("formFieldError", formFieldError);
             formFieldError = "";
+        }
+        if (errorMsg != "") {
+            model.addAttribute("errorMsg", errorMsg);
+            errorMsg = "";
         }
         return "courses";
     }
@@ -105,11 +110,16 @@ public class CourseController {
      * @return A redirect to "/courses".
      */
     @GetMapping("/courses/delete/")
-    public String deleteCourse(@RequestParam("id") String id) {
+    public String deleteCourse(@RequestParam("id") String id,Model model, @RequestParam(defaultValue = "0") int page) {
         // try to get the course through the repo using its id
         Course c = courseRepo.findById(Long.parseLong(id)).orElseThrow(() -> new ResourceNotFoundException("Course", "Id", id));
         // delete the course
-        courseRepo.delete(c);
+        try
+        {
+            courseRepo.delete(c);
+        } catch (Exception e){
+            errorMsg = "Es existieren noch Studenten in diesem Kurs!";
+        }
         return "redirect:/courses";
     }
 

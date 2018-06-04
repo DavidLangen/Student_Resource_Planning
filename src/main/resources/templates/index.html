@@ -139,8 +139,10 @@
             </div>
         </div>
     </div>
+
+    <!--Update Student Modal-->
     <div class="updateForm">
-        <form th:action="@{/student/update}" method="post">
+        <form th:action="@{/student/update}" method="post" >
             <div class="modal fade" id="updateModel" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -151,6 +153,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div th:if="${validationErrId != 0}">
+                                <div class="alert alert-danger" id="errbox" th:attr='data-id=${validationErrId}'><p>Bitte überprüfe deine Eingaben</p></div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="firstname" class="col-form-label">Name</label>
                                 <input class="form-control" id="firstname" name="firstName" value=""/>
@@ -179,7 +185,7 @@
                                 <label for="adressID" class="col-form-label">Adresse</label>
                                 <input class="form-control" id="adressID" name="adress" value=""/>
                             </div>
-                            <div class="form-group" hidden="true">
+                            <div class="form-group">
                                 <label for="id" class="col-form-label">id</label>
                                 <input class="form-control" id="id" name="id" value=""/>
                             </div>

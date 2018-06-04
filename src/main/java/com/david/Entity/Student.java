@@ -1,7 +1,6 @@
 package com.david.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,9 +12,11 @@ import java.util.stream.Collectors;
 
 /**
  * This class represents a student
+ *
  * @author David Langen
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "students")
 public class Student {
 
@@ -75,23 +76,17 @@ public class Student {
     private Address address;
 
     /**
-     * The course taken by students.
+     * The courses taken by students.
      */
-    @JsonBackReference
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade =
-                    {
-                            CascadeType.DETACH,
-                            CascadeType.MERGE,
-                            CascadeType.REFRESH,
-                            CascadeType.PERSIST
-                    },
-            targetEntity = Student.class)
-    @JoinTable(name = "student_course",
-            joinColumns = @JoinColumn(name = "course_id", nullable = false, updatable = false),
-            inverseJoinColumns = @JoinColumn(name = "student_id", nullable = false, updatable = false),
-            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
-            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
+    @JsonManagedReference
+    @ManyToMany(cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH
+    })
+    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
     private Set<Course> courses;
 
     /**
@@ -102,6 +97,7 @@ public class Student {
 
     /**
      * A standard constructor filling all properties of a student object.
+     *
      * @param studentNumber The student number of the student
      * @param firstName     The first name of the student
      * @param lastName      The last name of the student
@@ -121,6 +117,17 @@ public class Student {
         //this.courses = courses;
     }
 
+    public Student(String studentNumber, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String mail, String phone, @NotNull Date dateOfBirth, Address address, Set<Course> courses) {
+        this.studentNumber = studentNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mail = mail;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.courses = courses;
+    }
+
     /**
      * Gets the id of the student.
      *
@@ -128,6 +135,10 @@ public class Student {
      */
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
@@ -272,5 +283,20 @@ public class Student {
      */
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", studentNumber='" + studentNumber + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mail='" + mail + '\'' +
+                ", phone='" + phone + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", address=" + address +
+                ", courses=" + courses +
+                '}';
     }
 }

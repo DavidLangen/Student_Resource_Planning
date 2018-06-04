@@ -1,6 +1,6 @@
 package com.david.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +11,7 @@ import java.util.Set;
  * @author Marius Buerck
  */
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "courses")
 public class Course {
 
@@ -45,21 +46,8 @@ public class Course {
     /**
      * The students taking this course.
      */
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade =
-                    {
-                            CascadeType.DETACH,
-                            CascadeType.MERGE,
-                            CascadeType.REFRESH,
-                            CascadeType.PERSIST
-                    },
-            targetEntity = Course.class)
-    @JsonIgnore
-    @JoinTable(name = "student_course",
-            inverseJoinColumns = @JoinColumn(name = "course_id", nullable = false, updatable = false),
-            joinColumns = @JoinColumn(name = "student_id", nullable = false, updatable = false),
-            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
-            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
+    @JsonBackReference
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "courses")
     private Set<Student> students;
 
     /**

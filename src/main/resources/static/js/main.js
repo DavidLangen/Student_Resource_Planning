@@ -9,22 +9,8 @@ $(document).ready(function () {
         event.preventDefault(); //no request to the server
         var href = $(this).attr('href');
 
-        $.get(href, function(jsonobject, status){
-            var student = jsonobject;
-            var date = new Date(student.dateOfBirth);
-            $(".updateForm #firstname").val(student.firstName);
-            $(".updateForm #lastname").val(student.lastName);
-            $(".updateForm #mail").val(student.mail);
-            $(".updateForm #phone").val(student.phone);
-            $(".updateForm #dateOfBirth").val(date.toLocaleDateString('de-DE',{ month: '2-digit', day: '2-digit', year: 'numeric'}));
-            $(".updateForm #studentname").text(student.firstName +" " + student.lastName + " ("+student.studentNumber+")");
-            $(".updateForm #studentNumber").val(student.studentNumber);
-            $(".updateForm #adressID").val(student.address.id);
-            $(".updateForm #id").val(student.id);
-            $(".updateForm #town").val(student.address.town);
-            $(".updateForm #zip").val(student.address.zip);
-            $(".updateForm #street").val(student.address.street);
-            $(".updateForm #house_number").val(student.address.houseNumber);
+        $.get(href, function(student, status){
+            insertStudenInUpdate(student);
         });
         $(".updateForm #updateModel").modal();
     });
@@ -43,6 +29,43 @@ $(document).ready(function () {
         }
     });
 
+    if(window.location.href.indexOf('#updateModal') != -1) {
+        $('#updateModel').modal();
+        var id = $('#updateModel #errbox').data('id');
+        $.get("/student/find/?id="+id, function (student, status) {
+            insertStudenInUpdate(student);
+        });
+    }
+
+    function insertStudenInUpdate(student){
+        var date = new Date(student.dateOfBirth);
+        $(".updateForm #firstname").val(student.firstName);
+        $(".updateForm #lastname").val(student.lastName);
+        $(".updateForm #mail").val(student.mail);
+        $(".updateForm #phone").val(student.phone);
+        $(".updateForm #dateOfBirth").val(date.toLocaleDateString('de-DE',{ month: '2-digit', day: '2-digit', year: 'numeric'}));
+        $(".updateForm #studentname").text(student.firstName +" " + student.lastName + " ("+student.studentNumber+")");
+        $(".updateForm #studentNumber").val(student.studentNumber);
+        $(".updateForm #adressID").val(student.address.id);
+        $(".updateForm #id").val(student.id);
+        $(".updateForm #town").val(student.address.town);
+        $(".updateForm #zip").val(student.address.zip);
+        $(".updateForm #street").val(student.address.street);
+        $(".updateForm #house_number").val(student.address.houseNumber);
+
+        $.each(student.courses, function (i, course) {
+            $(".updateForm .coursesTable tbody").last()
+                .append("<tr>" +
+                    "<td>" + course.id + "</td>" +
+                    "<td>" + course.name + "</td>" +
+                    "<td>" + course.lecturer + "</td>" +
+                    "<td>" + course.description + "</td>" +
+                    "<td><button type=\"button\" onClick=\"$(this).closest('tr').remove();\"><span class=\"glyphicon glyphicon-trash\"></span></button>" +
+                    "<input type='hidden' name='courseids[]' value='" + course.id + "' /></td>" +
+                    "</tr>")
+        });
+    }
+
     //add course to table in the student create model
     $(".updateForm .addCourse").on("click", function () {
         addCourseToTableByContext(".updateForm");
@@ -55,6 +78,7 @@ $(document).ready(function () {
 
     $(".cancelModal").on("click", function () {
        $(".coursesTable tbody").empty();
+       $("#errbox").hide();
     });
 
     function addCourseToTableByContext(context){
