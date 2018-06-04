@@ -38,30 +38,37 @@ public class StudentController {
     @Autowired
     private CourseRepo courseRepo;
 
-    private long validationErrId = 0;
+    private long validationErrId;
+
+    private String formFieldError;
 
     @PostMapping(value = "/students/create")
     public String createStudent(
-            @RequestParam("studentNumberCreate") String studentNumber,
-            @RequestParam("firstNameCreate") String firstName,
-            @RequestParam("lastNameCreate") String lastName,
-            @RequestParam("mailCreate") String mail,
-            @RequestParam("phoneCreate") String phone,
-            @RequestParam("dateOfBirthCreate") String birth,
-            @RequestParam("ZipCreate") String zip,
-            @RequestParam("TownCreate") String town,
-            @RequestParam("StreetCreate") String street,
-            @RequestParam("HouseNumberCreate") String houseNumber,
-            @RequestParam("courseids[]") List<Long> courseids
+            @Valid Student s,
+            BindingResult resultS,
+            @Valid Address a,
+            BindingResult resultA,
+            @RequestParam(value = "courseids[]", defaultValue = "") List<Long> courseids
     ) {
-        // create a new student
-        String[] dateParts = birth.split("-");
-        Address address = new Address(zip, town, street, houseNumber);
-        Student s = new Student(studentNumber, firstName, lastName, mail, phone,
-                new Date(Integer.parseInt(dateParts[2]), Integer.parseInt(dateParts[1]), Integer.parseInt(dateParts[0])), address);
+        if (resultS.hasErrors() || resultA.hasErrors()) {
+            if (resultS.hasFieldErrors("mail")) {
+                formFieldError = "Das Emailfeld darf nicht leer sein.";
+            }
+            if(resultS.hasFieldErrors("dateOfBirth")){
+                formFieldError = "Der Geburtstag muss in der Vergangenheit liegen und nicht leer sein.";
+            }
+            if (resultS.hasFieldErrors("firstName")) {
+                formFieldError = "Bitte geben Sie einen Vornamen an.";
+            }
+            if(resultS.hasFieldErrors("lastName")){
+                formFieldError = "Bitte geben Sie einen Nachnamen an.";
+            }
+            return "redirect:/";
+        }
 
         Set<Course> courses = courseids.stream().map(id -> courseRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("course", "id", id))).collect(Collectors.toSet());
         s.setCourses(courses);
+        s.setAddress(a);
         // persist the new Student
         studentService.AddStudent(s);
         return "redirect:/";
@@ -95,7 +102,9 @@ public class StudentController {
             @Valid Student s,
             BindingResult resultS,
             @Valid Address a,
-            BindingResult resultA) {
+            BindingResult resultA,
+            @RequestParam(value = "courseids[]", defaultValue = "") List<Long> courseids
+    ) {
 
         if (resultS.hasErrors() || resultA.hasErrors()) {
             validationErrId = s.getId();
@@ -105,6 +114,8 @@ public class StudentController {
         logger.info("Addresse" + a);
         logger.info("Student" + s);
         s.setAddress(a);
+        Set<Course> courses = courseids.stream().map(id -> courseRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("course", "id", id))).collect(Collectors.toSet());
+        s.setCourses(courses);
         studentService.updateStudent(s);
         return "redirect:/";
     }
@@ -125,6 +136,10 @@ public class StudentController {
         model.addAttribute("validationErrId", validationErrId);
         if (validationErrId != 0) {
             validationErrId = 0;
+        }
+        if (formFieldError != "") {
+            model.addAttribute("formFieldError", formFieldError);
+            formFieldError = "";
         }
         return "index";
     }

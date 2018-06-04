@@ -12,6 +12,9 @@
         </div>
     </form>
     <form method="post" action="/students/delete">
+        <div th:if="${formFieldError}">
+            <div th:text="${formFieldError}" class="alert alert-danger"></div>
+        </div>
         <button class="btn btn-default" type="submit">Löschen</button>
         <table class="table table-hover">
             <thead>
@@ -76,43 +79,43 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="studentNumberCreate">student Number</label>
-                            <input type="text" class="form-control" id="studentNumberCreate" name="studentNumberCreate">
+                            <input type="text" class="form-control" id="studentNumberCreate" name="studentNumber">
                         </div>
                         <div class="form-group">
                             <label for="firstNameCreate">First Name</label>
-                            <input type="text" class="form-control" id="firstNameCreate" name="firstNameCreate">
+                            <input type="text" class="form-control" id="firstNameCreate" name="firstName">
                         </div>
                         <div class="form-group">
                             <label for="lastNameCreate">Last Name</label>
-                            <input type="text" class="form-control" id="lastNameCreate" name="lastNameCreate">
+                            <input type="text" class="form-control" id="lastNameCreate" name="lastName">
                         </div>
                         <div class="form-group">
                             <label for="mailCreate">Mail</label>
-                            <input type="email" class="form-control" id="mailCreate" name="mailCreate">
+                            <input type="email" class="form-control" id="mailCreate" name="mail">
                         </div>
                         <div class="form-group">
                             <label for="phoneCreate">Phone</label>
-                            <input type="number" class="form-control" id="phoneCreate" name="phoneCreate">
+                            <input type="number" class="form-control" id="phoneCreate" name="phone">
                         </div>
                         <div class="form-group">
                             <label for="dateOfBirthCreate">date Of Birth</label>
-                            <input type="Date" class="form-control" id="dateOfBirthCreate" name="dateOfBirthCreate">
+                            <input type="Date" class="form-control" id="dateOfBirthCreate" name="dateOfBirth">
                         </div>
                         <div class="form-group">
                             <label for="ZipCreate">Zip Code</label>
-                            <input type="number" class="form-control" id="ZipCreate" name="ZipCreate">
+                            <input type="number" class="form-control" id="ZipCreate" name="zip">
                         </div>
                         <div class="form-group">
                             <label for="TownCreate">Town</label>
-                            <input type="text" class="form-control" id="TownCreate" name="TownCreate">
+                            <input type="text" class="form-control" id="TownCreate" name="town">
                         </div>
                         <div class="form-group">
                             <label for="StreetCreate">Street</label>
-                            <input type="text" class="form-control" id="StreetCreate" name="StreetCreate">
+                            <input type="text" class="form-control" id="StreetCreate" name="street">
                         </div>
                         <div class="form-group">
                             <label for="HouseNumberCreate">Number</label>
-                            <input type="number" class="form-control" id="HouseNumberCreate" name="HouseNumberCreate">
+                            <input type="number" class="form-control" id="HouseNumberCreate" name="houseNumber">
                         </div>
                         <select class="courseSelection" >
                         </select>
@@ -175,17 +178,17 @@
                             </div>
                             <div class="form-group">
                                 <label for="dateOfBirth" class="col-form-label">Geburtstag</label>
-                                <input class="form-control" id="dateOfBirth" name="dateOfBirth" value=""/>
+                                <input type="Date" class="form-control" id="dateOfBirth" name="dateOfBirth" value=""/>
                             </div>
                             <div class="form-group" hidden="true">
                                 <label for="studentNumber" class="col-form-label">Studentennummer</label>
                                 <input class="form-control" id="studentNumber" name="studentNumber" value=""/>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" hidden="true">
                                 <label for="adressID" class="col-form-label">Adresse</label>
                                 <input class="form-control" id="adressID" name="adress" value=""/>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" hidden="true">
                                 <label for="id" class="col-form-label">id</label>
                                 <input class="form-control" id="id" name="id" value=""/>
                             </div>

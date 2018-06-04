@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -63,8 +64,9 @@ public class Student {
     /**
      * The birthday of the student.
      */
+    @Past
     @NotNull
-    @DateTimeFormat(pattern = "dd.mm.yyyy", iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-mm-dd", iso = DateTimeFormat.ISO.DATE)
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 

@@ -37,13 +37,21 @@ $(document).ready(function () {
         });
     }
 
+    if(window.location.href.indexOf('#createStudentModal') != -1) {
+        $('#createStudentModal').modal();
+        var id = $('#createStudentModal #errbox').data('id');
+        $.get("/student/find/?id="+id, function (student, status) {
+            insertStudenInUpdate(student);
+        });
+    }
+
     function insertStudenInUpdate(student){
         var date = new Date(student.dateOfBirth);
         $(".updateForm #firstname").val(student.firstName);
         $(".updateForm #lastname").val(student.lastName);
         $(".updateForm #mail").val(student.mail);
         $(".updateForm #phone").val(student.phone);
-        $(".updateForm #dateOfBirth").val(date.toLocaleDateString('de-DE',{ month: '2-digit', day: '2-digit', year: 'numeric'}));
+        $(".updateForm #dateOfBirth").val(date.toISOString().slice(0,10));
         $(".updateForm #studentname").text(student.firstName +" " + student.lastName + " ("+student.studentNumber+")");
         $(".updateForm #studentNumber").val(student.studentNumber);
         $(".updateForm #adressID").val(student.address.id);
