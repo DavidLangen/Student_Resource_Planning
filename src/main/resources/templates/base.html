@@ -4,16 +4,16 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Spring Boot Thymeleaf Hello World Example</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script type="text/javascript"
             src="webjars/jquery/2.2.3/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{js/main.js}" src="../static/js/main.js"></script>
     <script type="text/javascript"
             src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
-    <link rel="stylesheet" th:src="@{/css/main.css}" />
+    <link rel="stylesheet" th:src="@{/css/main.css}"/>
 
 </head>
 <body>
@@ -27,9 +27,11 @@
             <ul class="nav navbar-nav">
                 <!--<li><a href="/">Suche</a></li>-->
                 <li><a href="/courses">Kurse</a></li>
-                <li th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" ><a href="/user">User</a></li>
+                <li th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}"><a href="/user">User</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right"><li><a href="/logout">Logout</a></li></ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout">Logout</a></li>
+            </ul>
         </div>
 
     </div>

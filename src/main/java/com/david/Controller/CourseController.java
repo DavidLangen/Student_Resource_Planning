@@ -30,9 +30,9 @@ public class CourseController {
     private static final int PAGE_SIZE = 10;
 
     private String formFieldError = "";
-	private String errorMsg = "";
+    private String errorMsg = "";
 
-	@Autowired
+    @Autowired
     private CourseRepo courseRepo;
 
     /**
@@ -69,7 +69,7 @@ public class CourseController {
      * @return A redirect to "/courses".
      */
     @PostMapping(value = "/courses/create")
-    public String createCourse(@Valid Course course, BindingResult result){
+    public String createCourse(@Valid Course course, BindingResult result) {
         if (result.hasErrors()) {
             formFieldError = "Bitte füllen Sie alle Felder aus.";
             return "redirect:/courses";
@@ -110,14 +110,13 @@ public class CourseController {
      * @return A redirect to "/courses".
      */
     @GetMapping("/courses/delete/")
-    public String deleteCourse(@RequestParam("id") String id,Model model, @RequestParam(defaultValue = "0") int page) {
+    public String deleteCourse(@RequestParam("id") String id) {
         // try to get the course through the repo using its id
         Course c = courseRepo.findById(Long.parseLong(id)).orElseThrow(() -> new ResourceNotFoundException("Course", "Id", id));
         // delete the course
-        try
-        {
+        try {
             courseRepo.delete(c);
-        } catch (Exception e){
+        } catch (Exception e) {
             errorMsg = "Es existieren noch Studenten in diesem Kurs!";
         }
         return "redirect:/courses";
@@ -126,23 +125,25 @@ public class CourseController {
     /**
      * This controller method handles get-requests to "/courses/raw/".
      * It responds with a list courses.
-     * @return Iterable<Course>
+     *
+     * @return An iterable containing courses.
      */
     @GetMapping("/courses/raw")
     @ResponseBody
-    public Iterable<Course> coursesRaw(){
+    public Iterable<Course> coursesRaw() {
         return courseRepo.findAll();
     }
 
     /**
-     *  This controller method handles get-requests to "/courses/find/".
-     *  It find course by id and return it.
+     * This controller method handles get-requests to "/courses/find/".
+     * It find course by id and return it.
+     *
      * @param id The id of the searched course
      * @return Course
      */
     @GetMapping("/courses/find/")
     @ResponseBody
-    public Course findCourseById(long id){
+    public Course findCourseById(long id) {
         return courseRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Course", "id", id));
     }
 }

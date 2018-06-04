@@ -3,6 +3,7 @@ package com.david.Entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
@@ -10,6 +11,7 @@ import java.util.Vector;
 /**
  * This class is a custom implementation of UserDetails and wrapped also
  * the LoginUser class.
+ *
  * @author David Langen
  */
 public class UserAdapter implements UserDetails {
@@ -21,6 +23,7 @@ public class UserAdapter implements UserDetails {
 
     /**
      * A standard Constructor
+     *
      * @param user The LoginUser which will be wrapped
      */
     public UserAdapter(LoginUser user) {
@@ -29,6 +32,7 @@ public class UserAdapter implements UserDetails {
 
     /**
      * This method returns a Collection of Authorities for the Login-System
+     *
      * @return Collection of Authorities
      */
     @Override
@@ -40,6 +44,7 @@ public class UserAdapter implements UserDetails {
 
     /**
      * Gets the password of the User
+     *
      * @return The password of the user
      */
     @Override
@@ -49,6 +54,7 @@ public class UserAdapter implements UserDetails {
 
     /**
      * Gets the Username of the user
+     *
      * @return The username of the user
      */
     @Override
@@ -58,6 +64,7 @@ public class UserAdapter implements UserDetails {
 
     /**
      * The state of the account, if it generally expired
+     *
      * @return true
      */
     @Override
@@ -67,6 +74,7 @@ public class UserAdapter implements UserDetails {
 
     /**
      * The state of the account, if it locked (only for spring security)
+     *
      * @return true
      */
     @Override
@@ -76,6 +84,7 @@ public class UserAdapter implements UserDetails {
 
     /**
      * Gets the Credentials state, if it expired
+     *
      * @return true
      */
     @Override
@@ -85,6 +94,7 @@ public class UserAdapter implements UserDetails {
 
     /**
      * The state of the user, if it enable
+     *
      * @return true
      */
     @Override
@@ -94,9 +104,10 @@ public class UserAdapter implements UserDetails {
 
     /**
      * The state of the user, if it locked
+     *
      * @return true
      */
-    public boolean isLocked(){
+    public boolean isLocked() {
         return user.isLocked();
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * This class implements security configurations
+ *
  * @author David Langen
  */
 @EnableWebSecurity
@@ -34,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomizeAuthenticationSuccessHandler successHandler;
 
     /**
-     * This method configure the permisson for the requests
+     * This method configures the permissions for the requests
+     *
      * @param http
      * @throws Exception
      */
@@ -56,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * This method implements global security configuration and
      * connect the user repository with the login system.
+     *
      * @param auth The Builder for a AuthenticationManager
      * @throws Exception
      */
@@ -66,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * This Bean encrypt and decrypted passwords for the database
+     *
      * @return
      */
     @Bean

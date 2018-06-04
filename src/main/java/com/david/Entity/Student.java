@@ -119,6 +119,18 @@ public class Student {
         //this.courses = courses;
     }
 
+    /**
+     * An initializer constructor filling all properties of a student object.
+     *
+     * @param studentNumber The student number of the student
+     * @param firstName     The first name of the student
+     * @param lastName      The last name of the student
+     * @param mail          The email address of the student
+     * @param phone         The phone number of the student
+     * @param dateOfBirth   The brithday of the student
+     * @param address       The address of the student
+     * @param courses       The courses associated to this student
+     */
     public Student(String studentNumber, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String mail, String phone, @NotNull Date dateOfBirth, Address address, Set<Course> courses) {
         this.studentNumber = studentNumber;
         this.firstName = firstName;
@@ -139,6 +151,11 @@ public class Student {
         return id;
     }
 
+    /**
+     * Sets the id of this student.
+     *
+     * @param id The id to be set on this Student.
+     */
     public void setId(long id) {
         this.id = id;
     }

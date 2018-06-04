@@ -27,6 +27,9 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class StudentController {
 
+    /**
+     * A logger used to print messages to the servers output.
+     */
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -35,13 +38,32 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    /**
+     * A repository used to access the courses on the database.
+     */
     @Autowired
     private CourseRepo courseRepo;
 
+    /**
+     * Id of the student having a validation error.
+     */
     private long validationErrId;
 
+    /**
+     * The message to be displayed in case of validation errors in the forms.
+     */
     private String formFieldError;
 
+    /**
+     * This controller method handles requests to "/students/create". Therefore it handles student object creation.
+     *
+     * @param s         The Student object to be persisted.
+     * @param resultS   The BindingResults used for validation of the Student object.
+     * @param a         The Address object attached to the Student to be persisted.
+     * @param resultA   The BindingResult used for Validation of the Address object.
+     * @param courseids The courses associated to the given Student object.
+     * @return A redirect to "/", which shows the list of all students.
+     */
     @PostMapping(value = "/students/create")
     public String createStudent(
             @Valid Student s,
@@ -54,13 +76,13 @@ public class StudentController {
             if (resultS.hasFieldErrors("mail")) {
                 formFieldError = "Das Emailfeld darf nicht leer sein.";
             }
-            if(resultS.hasFieldErrors("dateOfBirth")){
+            if (resultS.hasFieldErrors("dateOfBirth")) {
                 formFieldError = "Der Geburtstag muss in der Vergangenheit liegen und nicht leer sein.";
             }
             if (resultS.hasFieldErrors("firstName")) {
                 formFieldError = "Bitte geben Sie einen Vornamen an.";
             }
-            if(resultS.hasFieldErrors("lastName")){
+            if (resultS.hasFieldErrors("lastName")) {
                 formFieldError = "Bitte geben Sie einen Nachnamen an.";
             }
             return "redirect:/";
@@ -91,10 +113,11 @@ public class StudentController {
     /**
      * This controller method handles post-requests to "/student/update/"
      *
-     * @param s       The parsed student object by spring
-     * @param a       The parsed adress object by spring
-     * @param resultS The result of the Validation
-     * @param resultA The result of the Validation
+     * @param s         The parsed student object by spring
+     * @param a         The parsed address object by spring
+     * @param resultS   The result of the Validation
+     * @param resultA   The result of the Validation
+     * @param courseids The ids of the courses the given student is associated to.
      * @return A redirect to "/".
      */
     @PostMapping(value = "/student/update")
@@ -130,7 +153,7 @@ public class StudentController {
      * @return the "student"-view
      */
     @GetMapping("/")
-    public String findStudents(Student s, Model model, @RequestParam(defaultValue = "") String search, @RequestParam(defaultValue = "0") int page) {
+    public String findStudents(Model model, @RequestParam(defaultValue = "") String search, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("students", studentService.findByName(search, page));
         model.addAttribute("currentPage", page);
         model.addAttribute("validationErrId", validationErrId);
@@ -159,6 +182,4 @@ public class StudentController {
         }
         return "redirect:/";
     }
-
-
 }

@@ -23,6 +23,7 @@ import java.util.Vector;
 /**
  * This service is a Wrapper-Class for the User Repository.
  * It´s wrapped Repository Methods and do some extra actions.
+ *
  * @author David Langen
  */
 @Service
@@ -41,9 +42,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     /**
      * This service method find details about an User from the database.
+     *
      * @param username of the User
-     * @throws UsernameNotFoundException
      * @return UserDetails of the searched User
+     * @throws UsernameNotFoundException
      */
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -58,28 +60,31 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     /**
      * This service method returns all LoginUser in the database,
      * wrapped with the page class.
+     *
      * @param page the current page number
      * @return sorted LoginUser list of the current page
      */
-    public Page<LoginUser> getAllUser(int page){
+    public Page<LoginUser> getAllUser(int page) {
         return userRepository.findAllByRoleEquals(UserRoles.USER.toString(), PageRequest.of(page, PAGEROW_SIZE));
     }
 
     /**
      * This service method find a LoginUser by his id or throws an exception.
+     *
      * @param id of the searched User
-     * @throws ResourceNotFoundException
      * @return searched LoginUser object
+     * @throws ResourceNotFoundException
      */
-    public LoginUser getUserById(long id){
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User","id",id));
+    public LoginUser getUserById(long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
     }
 
     /**
      * This service method save a LoginUser in the database.
+     *
      * @param user to be saved
      */
-    public void saveUser(LoginUser user){
+    public void saveUser(LoginUser user) {
         userRepository.save(user);
     }
 
@@ -88,8 +93,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @PostConstruct
     private void initUser() {
-        saveUser(new LoginUser("max","hart",UserRoles.USER, true));
-        saveUser(new LoginUser("david","password",UserRoles.ADMIN));
+        saveUser(new LoginUser("max", "hart", UserRoles.USER, true));
+        saveUser(new LoginUser("david", "password", UserRoles.ADMIN));
     }
 }
 

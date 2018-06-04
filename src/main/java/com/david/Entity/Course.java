@@ -8,10 +8,11 @@ import java.util.Set;
 
 /**
  * This class represents a course.
+ *
  * @author Marius Buerck
  */
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "courses")
 public class Course {
 
@@ -80,6 +81,7 @@ public class Course {
 
     /**
      * Sets the id of this course.
+     *
      * @param id The id to be set on this course.
      */
     public void setId(long id) {

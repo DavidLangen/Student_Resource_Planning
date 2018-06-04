@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('.nav li').click(function(){
+    $('.nav li').click(function () {
         $('.nav li').removeClass('active');
         $(this).addClass('active');
     });
@@ -9,15 +9,15 @@ $(document).ready(function () {
         event.preventDefault(); //no request to the server
         var href = $(this).attr('href');
 
-        $.get(href, function(student, status){
+        $.get(href, function (student, status) {
             insertStudenInUpdate(student);
         });
         $(".updateForm #updateModel").modal();
     });
 
     //fill select box with courses
-    $(".sBtn, .eBtn").on("click",function () {
-        if($(".courseSelection").children().length <= 0) {
+    $(".sBtn, .eBtn").on("click", function () {
+        if ($(".courseSelection").children().length <= 0) {
             $.get("courses/raw", function (courses, status) {
                 $.each(courses, function (i, item) {
                     $(".courseSelection").append($('<option>', {
@@ -29,30 +29,30 @@ $(document).ready(function () {
         }
     });
 
-    if(window.location.href.indexOf('#updateModal') != -1) {
+    if (window.location.href.indexOf('#updateModal') != -1) {
         $('#updateModel').modal();
         var id = $('#updateModel #errbox').data('id');
-        $.get("/student/find/?id="+id, function (student, status) {
+        $.get("/student/find/?id=" + id, function (student, status) {
             insertStudenInUpdate(student);
         });
     }
 
-    if(window.location.href.indexOf('#createStudentModal') != -1) {
+    if (window.location.href.indexOf('#createStudentModal') != -1) {
         $('#createStudentModal').modal();
         var id = $('#createStudentModal #errbox').data('id');
-        $.get("/student/find/?id="+id, function (student, status) {
+        $.get("/student/find/?id=" + id, function (student, status) {
             insertStudenInUpdate(student);
         });
     }
 
-    function insertStudenInUpdate(student){
+    function insertStudenInUpdate(student) {
         var date = new Date(student.dateOfBirth);
         $(".updateForm #firstname").val(student.firstName);
         $(".updateForm #lastname").val(student.lastName);
         $(".updateForm #mail").val(student.mail);
         $(".updateForm #phone").val(student.phone);
-        $(".updateForm #dateOfBirth").val(date.toISOString().slice(0,10));
-        $(".updateForm #studentname").text(student.firstName +" " + student.lastName + " ("+student.studentNumber+")");
+        $(".updateForm #dateOfBirth").val(date.toISOString().slice(0, 10));
+        $(".updateForm #studentname").text(student.firstName + " " + student.lastName + " (" + student.studentNumber + ")");
         $(".updateForm #studentNumber").val(student.studentNumber);
         $(".updateForm #adressID").val(student.address.id);
         $(".updateForm #id").val(student.id);
@@ -85,20 +85,20 @@ $(document).ready(function () {
     });
 
     $(".cancelModal").on("click", function () {
-       $(".coursesTable tbody").empty();
-       $("#errbox").hide();
+        $(".coursesTable tbody").empty();
+        $("#errbox").hide();
     });
 
-    function addCourseToTableByContext(context){
-        var courseid = $(context+" .courseSelection").val();
+    function addCourseToTableByContext(context) {
+        var courseid = $(context + " .courseSelection").val();
 
         var coursidExists = false;
-        $(context+' .coursesTable input[name="courseids[]"]').each(function(){
-            if($(this).val() == courseid) courseid = true;
+        $(context + ' .coursesTable input[name="courseids[]"]').each(function () {
+            if ($(this).val() == courseid) courseid = true;
         });
-        if(!coursidExists) {
+        if (!coursidExists) {
             $.get("/courses/find/?id=" + courseid, function (course, status) {
-                $(context+" .coursesTable tbody").last()
+                $(context + " .coursesTable tbody").last()
                     .append("<tr>" +
                         "<td>" + course.id + "</td>" +
                         "<td>" + course.name + "</td>" +
@@ -112,7 +112,7 @@ $(document).ready(function () {
     }
 
     // fills the inputs of the update course modal
-    $(".btnUpdateCourse").click( function () {
+    $(".btnUpdateCourse").click(function () {
         $("#uc-id").val($(this).data('id'));
         $("#uc-name").val($(this).data('name'));
         $("#uc-description").val($(this).data('description'));

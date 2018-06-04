@@ -17,32 +17,38 @@ import java.io.IOException;
 @Component
 public class CustomizeAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
+    /**
+     * A logger used to print messages to the servers output.
+     */
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-
+    /**
+     * Event called when the authentication has been successful.
+     *
+     * @param request        The incoming HTTP request.
+     * @param response       The outgoing HTTP response.
+     * @param authentication An authentication object used to access authentication features.
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
-
-        boolean admin = false;
-
         logger.info("AT onAuthenticationSuccess(...) function!");
 
         UserAdapter user = (UserAdapter) authentication.getPrincipal();
 
-        logger.info("Username:"+user.getUsername());
-        logger.info("Locked?:"+user.isLocked());
+        logger.info("Username:" + user.getUsername());
+        logger.info("Locked?:" + user.isLocked());
 
 
-        if(user.isLocked()){
+        if (user.isLocked()) {
             logger.info("User is locked.");
             authentication.setAuthenticated(false);
             response.sendRedirect("/");
-        }else{
+        } else {
             //set our response to OK status
             response.setStatus(HttpServletResponse.SC_OK);
             logger.info("User isn't locked.");

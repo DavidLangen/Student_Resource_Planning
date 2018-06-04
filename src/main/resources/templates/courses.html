@@ -5,7 +5,7 @@
       layout:decorate="~{base}">
 
 <div layout:fragment="page_content" id="page_content">
-	<div th:if="${errorMsg != null}">
+    <div th:if="${errorMsg != null}">
         <div th:text=${errorMsg} class="alert alert-danger"></div>
     </div>
     <div th:if="${formFieldError}">

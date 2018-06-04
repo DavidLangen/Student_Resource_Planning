@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * This class represents a address
+ *
  * @author David Langen
  */
 @Entity
@@ -48,10 +49,11 @@ public class Address {
 
     /**
      * A standard constructor filling all properties of a address object.
-     * @param zip           The zip of the address
-     * @param town          The town of the address
-     * @param street        The street of the address
-     * @param houseNumber   The house number of the address
+     *
+     * @param zip         The zip of the address
+     * @param town        The town of the address
+     * @param street      The street of the address
+     * @param houseNumber The house number of the address
      */
     public Address(@NotBlank String zip, @NotBlank String town, @NotBlank String street, @NotBlank String houseNumber) {
         this.zip = zip;
@@ -75,6 +77,11 @@ public class Address {
         return id;
     }
 
+    /**
+     * Sets the id of this address.
+     *
+     * @param id The id to be set on this address.
+     */
     public void setId(long id) {
         this.id = id;
     }
@@ -152,8 +159,9 @@ public class Address {
     }
 
     /**
-     * Returns a formated output about the address
-     * @return the formated output
+     * Returns a formatted output about the address
+     *
+     * @return the formatted output
      */
     @Override
     public String toString() {

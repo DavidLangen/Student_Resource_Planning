@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 /**
  * This class represents a user.
+ *
  * @author David Langen
  */
 @Entity
@@ -46,19 +47,22 @@ public class LoginUser {
     /**
      * A special constructor filling all properties of a user object
      * apart from locked, which will be set to false.
-     * @param username  The username of the User
-     * @param password  The password of the User (will be crypted)
-     * @param role      The role of the User
+     *
+     * @param username The username of the User
+     * @param password The password of the User (will be crypted)
+     * @param role     The role of the User
      */
     public LoginUser(String username, String password, UserRoles role) {
-        this(username,password,role,false);
+        this(username, password, role, false);
     }
+
     /**
      * A standard constructor filling all properties of a user object.
-     * @param username  The username of the User
-     * @param password  The password of the User (will be crypted)
-     * @param role      The role of the User
-     * @param locked    The lock state of the User
+     *
+     * @param username The username of the User
+     * @param password The password of the User (will be crypted)
+     * @param role     The role of the User
+     * @param locked   The lock state of the User
      */
     public LoginUser(String username, String password, UserRoles role, boolean locked) {
         this.username = username;
@@ -68,7 +72,7 @@ public class LoginUser {
     }
 
     /**
-     *  A default constructor
+     * A default constructor
      */
     public LoginUser() {
     }
@@ -100,13 +104,14 @@ public class LoginUser {
      * This Method lock or unlock the user for the Login-System,
      * depending on the state of the user
      */
-    public void toggleLocking(){
-        if(this.locked) unlock();
+    public void toggleLocking() {
+        if (this.locked) unlock();
         else lock();
     }
 
     /**
      * Gets the lock state of the user
+     *
      * @return The lock state of the user
      */
     public boolean isLocked() {
@@ -115,6 +120,7 @@ public class LoginUser {
 
     /**
      * Gets the Username of the user
+     *
      * @return The username of the user
      */
     public String getUsername() {
@@ -123,6 +129,7 @@ public class LoginUser {
 
     /**
      * Change the username of the user
+     *
      * @param username The username to be set
      */
     public void setUsername(String username) {
@@ -131,6 +138,7 @@ public class LoginUser {
 
     /**
      * Gets the crypted password of the user
+     *
      * @return the crypted password of the user
      */
     public String getPassword() {
@@ -139,6 +147,7 @@ public class LoginUser {
 
     /**
      * Sets the password of the user and crypted it
+     *
      * @param password the password in clear text
      */
     public void setPassword(String password) {
@@ -147,6 +156,7 @@ public class LoginUser {
 
     /**
      * Gets the role of the user
+     *
      * @return The role of the user
      */
     public String getRole() {
@@ -155,6 +165,7 @@ public class LoginUser {
 
     /**
      * Sets the role of the user
+     *
      * @param role The role to be set
      */
     public void setRole(String role) {

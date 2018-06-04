@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 
 /**
  * This controller handles incoming requests concerning the user.
+ *
  * @author David Langen
  */
 @Controller
 public class UserController {
-
 
     /**
      * Wrapper-Class for the User Repository
@@ -33,8 +33,9 @@ public class UserController {
     /**
      * This controller method handles get-requests to "/user".
      * It responds with an index view of user.
+     *
      * @param model The model used in Thymeleaf templating.
-     * @param page Page number of the currently displayed page.
+     * @param page  Page number of the currently displayed page.
      * @return The "user"-view.
      */
     @GetMapping("/user")
@@ -50,11 +51,12 @@ public class UserController {
      * It is responsible for lock or unlock LoginUser.
      * This depends on the state of the User.
      * It redirects to "/user".
+     *
      * @param id The id of the course to be deleted.
      * @return A redirect to "/user".
      */
     @GetMapping("/user/lock/")
-    public String lockUserById(long id){
+    public String lockUserById(long id) {
         LoginUser user = userDetailsService.getUserById(id);
         user.toggleLocking();
         userDetailsService.saveUser(user);
@@ -65,13 +67,13 @@ public class UserController {
      * This controller method handles post-requests to "/user/create".
      * It is responsible for creating LoginUser. It responds with a redirect to
      * "/user"
+     *
      * @param user The parsed LoginUser object to be created.
      * @return A redirect to "/user".
      */
     @PostMapping(value = "/user/create")
-    public String createUser(@ModelAttribute LoginUser user){
+    public String createUser(@ModelAttribute LoginUser user) {
         userDetailsService.saveUser(user);
         return "redirect:/user";
     }
-
 }
