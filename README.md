@@ -34,4 +34,4 @@ Testdaten für ein lokales testen können über das SQL-Skript [data.sql](src/ma
 ![](Screenshots/courses_view.png)
 ![](Screenshots/courses_edit.png)
 ![](Screenshots/admin_view.png)
-)
+
