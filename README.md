@@ -1,5 +1,7 @@
 # Student Resource Planning
 
+[![Maven Build](https://github.com/DavidLangen/Student_Resource_Planning/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/DavidLangen/Student_Resource_Planning/actions/workflows/maven-publish.yml)
+
 ## Über das Projekt
 
 Ziel des Projektes war es eine Studen-Plannungs-Webanwendung für eine fiktive Universität zu entwickeln.
