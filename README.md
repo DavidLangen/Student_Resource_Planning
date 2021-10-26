@@ -1,6 +1,6 @@
 # Student Resource Planning
 
-[![Maven Build](https://github.com/DavidLangen/Student_Resource_Planning/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/DavidLangen/Student_Resource_Planning/actions/workflows/maven-publish.yml)
+[![Maven Build](https://github.com/DavidLangen/Student_Resource_Planning/actions/workflows/maven-publish.yml/badge.svg?branch=master)](https://github.com/DavidLangen/Student_Resource_Planning/actions/workflows/maven-publish.yml)
 
 ## Über das Projekt
 
